@@ -1,0 +1,2537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Opposite Call — 体験プロトタイプ | nanoca</title>
+<meta name="description" content="一方その頃、どこかのだれかは。あなたと正反対の生活をする誰かと、一度きり・77往復だけ言葉を交わす通話の体験。声は変換され、記録されず、同じ相手とは二度と繋がりません。終わると、二人の声から一輪の花が咲きます。nanoca inc.">
+<meta property="og:title" content="Opposite Call — 一方その頃、どこかのだれかは。">
+<meta property="og:description" content="正反対の誰かと、一度きり・77往復。記録されない通話から、一輪の花が咲く体験プロトタイプ。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#070c20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23070c20'/%3E%3Cg stroke='%23e9e7dd' stroke-width='0.6' fill='none' opacity='0.9'%3E%3Cpath d='M7 9 L15 13 L11 20 L21 16 L25 24'/%3E%3C/g%3E%3Cg fill='%23fff3e2'%3E%3Ccircle cx='7' cy='9' r='1.3'/%3E%3Ccircle cx='15' cy='13' r='1'/%3E%3Ccircle cx='11' cy='20' r='1'/%3E%3Ccircle cx='21' cy='16' r='1'/%3E%3Ccircle cx='25' cy='24' r='1.4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Space+Mono&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<!--
+  Opposite Call 体験プロトタイプ (nanoca / 株式会社ナノカ)
+  ─ 位置づけ: 医療・相談窓口ではない「生活サービス/通話ツール」。エンタメだがシリアス。
+  ─ 憲法準拠: 決定論(Math.random不使用・mulberry32)/ 静謐・上品 / 断定と効能を言わない /
+    集合体恐怖への配慮(粒の群れなし・花は一輪だけ)/ 記録しない(拾い言葉方式)
+  ─ 視覚感性ガイド準拠: 光だまりは「単色RGB+alphaのみ空間ハッシュノイズ」テクスチャ(色割れの構造的排除)/
+    dithering不使用 / スマホはグロー減衰 / ?quiet=1 で発光系すべて非表示(避難所・切り分け器)
+  ─ 構図文法準拠: 較正原点からの際立ち(^0.72拡大)→ 花形6系統・咲き加減(真は八分以上)・色温度調律±18°
+  ─ 音の作法準拠: 満ちて溶ける(立ち上がり0.4秒以上)/ 水のローパス・残響主役 / 全音符61bpm・8小節進行 /
+    出口の岸辺(コンプ threshold-26/ratio5/knee20 + ×2.6)
+  ─ 相手はシミュレーションです(本番はWebRTC+本人確認+変声)。音声はどこにも送信・保存されません。
+  ─ 検証用: ?fast=1 で通話短縮 / ?quiet=1 で静謐モード
+  ─ 変更履歴: o1(2026.07)骨格+拾い言葉+仮の花 → o2(2026.07)視覚感性ガイドv1.6+構図文法v1を適用
+    → o3(2026.07)通話77秒(7/7生まれ・星の逢瀬の刹那)/ 個人情報の自動モザイク(安全な場所)/
+      旋律は止めるまでループ(声標本のpianoTone移植)/ nanoca inc. 表記
+    → o4(2026.07)顔を軽く:ロゴ(7/7点対称・斜線を二人で分け合う)+一行コピー「一方、そのころ。」+
+      「反対側に電話をかける」+注意書きは小さく。説明を減らし、誰でも気軽にかけていい電話の顔に
+    → o5(2026.07)星が降り、たまにぶつかり合う(温白一色・波紋の輪・群れごと明滅=禁忌準拠)/
+      誕生は星が輪郭に灯ってから咲くドローンショー式 / ロゴに受話器の丸(電話感)/
+      コピー「一方その頃、どこかのだれか。」存在感を小さく / なぞって発信 / フォント(Shippori Mincho+Cormorant Garamond)
+    → o6(2026.07)花を声標本の設計図の一輪に(petalPts・花形レシピ・蕊・芯を本体から移植=同じブランドの花)/
+      なぞりの星をキラッ・ホワッに(光背+十字のきらめき・指に付いてくる)/ 文言「ながれる星を なぞると、電話がかかります」
+    → o7(2026.07)詩帆のバグ報告(太い線・塗りの●・蕊が気持ち悪い)を受け:ロゴを星座の7/7に全面改稿
+      (細線0.9で小さな星を結ぶ・主星に十字・円環廃止)/ なぞり跡は星屑の細線+淡い光背 / 花の蕊(雄蕊・雌蕊)を不採用に
+      (視覚感性ガイド第2章の表に追記すべき事件:放射する線と点の群れも禁忌に近い)
+    → o8(2026.07)背景を常時の星空に(星座=ロゴが主役として際立つ)/ なぞり判定を大幅に緩和+星は端で一呼吸 /
+      誕生を立体に:茎が下から生え、花弁が蕾から立体的にほどけ、降りた星が輪郭の頂点に住みつく
+      =「星座が繋いだ花」が星空に咲く(星は消えずに残る)
+    → o9(2026.07)空の解除:誘いの星は動かず端の星に座る。パターン解除のように端から端へなぞると
+      星が満ち大波紋がひらき「世界は目の前だけじゃない」の開放 / 色を紅(相手)と緑(あなた)に
+      (光だまり・ロゴの二つの7・花の膜。背景の星空は禁忌準拠で温白一色のまま)
+    → o10(2026.07)紅と緑は通話画面の光だまり(と花の膜)のみと判明:トップの星座を金と月白に戻す
+    → o11(2026.07)天体の360度回転:花をドラッグで回す(慣性つき)・咲き終えると地球儀のように自転・
+      背景の星空も視差でいっしょに回る・上下ドラッグで見上げ/見下ろし(pitch 0.16-0.44)・保存は見ている角度のまま
+    → o12(2026.07)なぞりを「Zの一筆書き」に(詩帆の指定):始点=上の7の左端の星、終点=下の7の右下の星。
+      折れ線への弧長射影で判定、なぞり跡はZに沿って灯る(dasharray)、誘いの星はZの始点に座る
+    → o13(2026.07)解除後の飛翔:星々が奥から手前へ流れ出し(流れの筋=線・3.4秒でふわっと加速し静かに着く)、
+      波紋は三度ひらき、星は2.2倍に満ち、もう一音ひらく=「もっと星空に飛んでいく」解放
+    → o14(2026.07)世界を満たす:天の川の帯と光のたまり(単色グロー×alphaノイズ・月白+淡青鼠のみ)、
+      明るい星の十字のきらめき、尾を引く流れ星(解除後は7〜16秒に一度)。
+      解除の三音と呼び出し音をささやきの音量に(「最初の音はうるさい」のバグ報告)
+    → o15(2026.07)なぞり跡が星座を無視して角だけ結んでいた(Zの直線)のを修正:
+      なぞる道=星から星へ、10個すべての星を通る折れ線に。軌跡も星座の形どおりに灯る
+    → o16(2026.07)「希望のある空」へ(詩帆が正典の調整を明示承認):空を深藍に・星と流れ星は青白の光・
+      天の川は青白+すみれの二色で濃く(0.72)・二つの光だまりは紅/緑をやめ、参照画像から
+      菫(相手)と青(あなた)をピックアップ・花の膜も菫×青に。ロゴの金と月白は維持
+    → o17(2026.07)プロフィール設定(都道府県/仕事/年齢層/今の気持ち。相手に見えるのはこれだけ)と
+      oppositeマッチング(気持ちが逆の相手を決定論で選択)/ 設計図の一文を事実に
+      「北海道の美容師(20代・哀)と、トロムソの漁師(40代・楽)。」/ 通話の二色は時刻+相手から
+      決まる毎回違う二色(140°以上離れたopposite色・乱数不使用)。花の膜も連動
+    → o18(2026.07)バトン一括:中央の丸と芯グロー廃(収束点も花弁基部を離して解消)/ 花はその都度違う系統
+      (通話固有の種で6系統巡回・直前と同じは出さない)/ カウントダウンは77→0の秒のみ+最後の7秒は溶暗 /
+      宇宙を天球化(球面の星・花と同一yawで360度・端のない宇宙)/ 星座リアル化(結線0.55で淡く・主星ににじみ・十字0.32)/
+      フォント刷新(Zen Kaku Gothic New+Space Grotesk+Space Mono=ネオ×無限の空)/ ホームボタン常設 /
+      スピーカー不可の掲示(ホーム+通話。実効遮断はアプリ要件)/ 設計図の動画保存(f44作法・旋律つき)+
+      保存時のみWeb3Formsでnanocaへ設計図メタ送信(通話内容は送らない)+KOE-HYOHONへの導線 /
+      コピー「あなたの反対側へ電話が繋がります」「あなたの反対側を探しています」
+    → o19(2026.07)iPhone検品対応:天の川の継ぎ目(縦線)をラップ描画で根絶 / ブランド名を最上部へ /
+      注意書きを「繋がる前に」の左寄せブロックに整理+イヤホン・ヘッドホン推奨を明記 / なぞり文言の改行 /
+      消音スイッチ対策(audio要素でセッションをplaybackへ)/ 誕生画面は「花と相手」が主役・設計図データは小さく・
+      ボタン整理 / 通話画面に星の砂時計:7つの星が11秒にひとつずつ落ち、着水の波紋で溶ける+大きな秒数
+    → o20(2026.07)解除の波紋はひとつの正円だけ(同心円の群れ廃=6c)/ 通話画面の物語を一本化:
+      二人の色の光から雫が交互に落ち→着水の正円波紋→根が下へ伸び→77秒後その根から花が咲く。
+      秒数は二色の上に静かに透過 / 全行に拾える印❋・ボタンは小さく離して誤タップ回避 /
+      花は真上からも見られる回転域(pitch 1.25まで)/ ブランド名は左上へ(セーフエリア対応)
+    → o21(2026.07)雫の着地を中空の水面(60%)へ=ボタンと被らない / 星の衝突の輪を廃し十字の瞬きに
+      (画面上の輪は解除の一つの正円だけ)/ iOSで花を上から見られない件=canvasのtouchmoveをpreventDefault /
+      誕生画面の下余白拡大=窓口と被らない / 没入の回復:飛翔4.4秒・筋を濃く・空ごとズームイン(scale1.16→1)+
+      画面がふっと現れるscreenIn
+    → o22(2026.07)「深い空」:天体写真の文法で焼き込む静的な空(微光星の海 数千・帯にガウス濃集・
+      暖色の芯(淡桃/薔薇)・暗黒帯・光条つき主星7)。解除後は全開(1.0)、ホームでは淡く(0.34)。
+      詩帆の承認による色の解放(参照写真基準)。継ぎ目はラップ描画で根絶
+    → o23(2026.07)十字の星(光条)を全廃=バグ報告(怖い・安っぽい)。主星も動く星もにじみのみ /
+      補完として流れ星を増量(解除後3〜8秒に一度)+ぶつかった二つの星は流れ星になって別れる /
+      タイルの黒い隙間=整数座標で根絶 / 雲の色味をもう一段(桃・薔薇を濃く)
+    → o24(2026.07)着地の物語:なぞりの終点の星が、なぞりの進みとともに灯りはじめ、
+      繋がった瞬間にまばゆく点る(にじみのみ・十字なし)。途中でやめたら、また眠る /
+      プロフィールの「姿」→「声」(カメラを連想させないため。届くのは声だけ)
+    → o25(2026.07)カクつき対策:ロゴのdrop-shadowフィルタ廃止(iOSの毎フレーム再描画=主犯)/
+      天の川を専用の合成レイヤーに(毎フレームのdrawImage×2→translate3dのみ=描画ゼロ、飛翔のズームも合成)/
+      星の衝突総当たりを0.6秒間隔に間引き
+    → o26(2026.07)音割れ根絶:出口の岸辺を調整(持ち上げ2.0+最終リミッタ0.82・各音量一段下げ。
+      正典6の×2.6は「歪まない範囲で」の但し書きを追記すべき事件)/ 根っこ廃止→雫は空間の途中に
+      ポトンと落ち、小さな正円の波紋だけ残して消える(テキストと交差しない)/ 花の二色を顕著に:
+      花弁を一枚おきに二人の色で染める(単一輪の花形で全弁同色になっていた不具合の修正)+輪郭線にも色の気配。
+      声標本モデル準拠(林博士の監修クレジット余地を維持)
+    → o27(2026.07)「ONE FLOWER, ONCE」→「OPPOSITE FLOWER #001」:ユーザーのコレクションとして
+      通し番号(端末に記憶・花が生まれるたび加算)。動画・画像の刻印にも番号
+    → o28(2026.07)二人の表記を対等・横並びに:それぞれの色の点を戴く左右対称ブロック+中央に×(交差した星)/
+      「(今日は、言葉は拾わずに)」削除 / 通話冒頭に拾い方ガイド(最初のひと言の❋がまたたく+一度だけの案内)
+    → o29(2026.07)初回だけの使い方ガイド4枚(タップで進む・端末が記憶)/ 縦線の真因発見と根絶:
+      斜め一直線の帯は左右の端で高さが合わない→帯を周期(下がって上がる)にして端と端を接続 /
+      誕生画面の余白・行間を調整(上下いっぱい問題)/「保存するとnanocaに届く」注記を削除
+    → o30(2026.07/Opus)コピー「…どこかのだれかは。」/ 繋がる前にを箇条書き(点マーカー)に /
+      咲く花は必ずすこし傾いで垂れる(星座の姿勢・茎は直線数節+節の星)
+    → o31(2026.07/Opus)改悪の修正:背景の空の自動回転(starT*0.006)を撤去=白い星空の幕が
+      左→右にカクカク流れる不具合の根絶。空はドラッグ時のみ動く。合成レイヤーの整数丸めも外し滑らかに
+    → o32(2026.07/Opus)カクつき真因:星が天球を渡る処理(s.th+=s.dr*dt)が全画面で動いていた→
+      花を眺める画面と飛翔だけに限定=ホームは完全静止(twinkleのみ)。#starsのwill-change撤去 /
+      耳当て文言を全廃しイヤホン・ヘッドホン推奨で統一(掲示・通話・ガイド)
+    → o33(2026.07/Opus)放射状の筋の真因:o32で星を静止させた副作用で、近接した静止星が6秒ごとに
+      永久衝突→高速の流れ星を放射していた。衝突→流れ星も、ふだんの流れ星も「解除後の生きた空」だけに限定。
+      ★星空・天の川・深い空はそのまま(詩帆の希望)。ホームは静かな星空、解除後に流れ星が降る
+    → o34(2026.07/Opus)「天の川が左から流れてくる」真因:天の川が横スクロールするテクスチャで、
+      花画面の自動回転で帯が流れて見えた。天の川を完全固定の背景に(横スクロール撤去)・星の微ドリフト撤去・
+      花の自動回転撤去(ドラッグ時のみ回る)。星空は残したまま、動かず静か。scale(飛翔ズーム)だけは維持
+    → o35(2026.07/Opus)星空は「動いていてほしい」(詩帆)を両立:星は静かに渡る(ドリフト復活)=空は生きている。
+      天の川は固定の背景のまま=「左から流れる」は起きない。文言明確化:「声は変換されます」→
+      「お互いの声色は変換されて、相手に届きます」(掲示・ガイド・通話画面)
+    → o36(2026.07/Opus)なぞりの音:星を通過するたび、水中の鈴のような澄んだ音がペンタトニックで
+      一段ずつ上がる(柔らかな立ち上がり・ローパス・残響=音の作法)/ 解除の瞬間に電子音声「Opposite Call」
+      (SpeechSynthesis・低めピッチ)
+    → o37(2026.07/Opus)電子音声を可愛らしく:高めピッチ(1.55)・軽やか・女性寄りの声を優先選択
+      (Samantha等)。声の遅延読み込みにも対応
+    → o38(CLOHAN実声スロット追加・休眠)→ o39(声を一番初めの低め電子音に戻す・詩帆の好み)
+    → o40(2026.07/Opus)なぞりの和音をAm9(11)に=翳りのあるおしゃれなマイナー(Salyu・サカナクションの色)。
+      長い余韻+残響で一粒ずつ重なり、なぞり切ると和音になる。ひらきの和音もAmへ解決=nanocaの美学(音)
+    → o41-o44(2026.07/Opus)なぞりの音の探求:短調4パターン→低く印象派(リリイ・シュシュ/小林武史/ドビュッシー)
+      →「困り顔」(mMaj7・m7b5・最後の明るい音を廃)→最終形:サス中心のコード進行GLIDE 8和音
+      (Asus2→Gsus2→Fadd9→Gsus4→Am add9→Dsus2→Csus2→Esus4・全和音3度なし=宙づりの浮遊・
+      「グライド」イントロの情感・なぞる毎に転調・着地は解決しないEsus4)
+    → o45(2026.07/Fable 完成版)スマホ無音の根治:有効な無音WAVループ+生成直後resume+無音バッファ一発+
+      全タップでの再アンロック+復帰時resume / コピー「あなたの声を教えてください」(事実を聞く=nanocaの美学) /
+      残骸掃除(未使用のTEX_CORE・pickCuteVoice)
+    → o46(2026.07/Fable)星空が欠ける事故の根治:深い空レイヤーが端末幅の解釈ズレで画面の大半から外れ、
+      「没入感も彩も消えた」の真因に。レイヤーを常に画面中央固定(-50%)+CSS寸法明示+毎フレームの
+      寸法自己修復(ズレたら即再構築)=どの端末・どの向きでも空は途切れない
+    → o47(2026.07/Fable)「ゴォォォ」轟音の根絶(Bluetoothで顕著):真因=和音のサブオクターブ(41-73Hz)が
+      残響フィードバック内で低域増幅循環。①サブオクターブ廃止 ②残響ループにハイパス150Hz
+      ③出口に保護ハイパス48Hz ④帰還0.42→0.34。和音の美しさは保ったまま低音の暴走を構造的に不可能に
+    → o48(2026.07/Opus)根本転換「声にする＝言葉にする」:相手の言葉を合成音声で読み上げる(生の声は旅をしない
+      =匿名は構造に・テキストは配信前に検閲でき安全とApple審査が現実に)。77秒は"居るだけ"に(通話中の拾いを廃)。
+      通話後に時間制限なしの「拾いの画面」を新設=相手の言葉が夜に散らばり、七つ(七夕)まで手元に、拾わぬ言葉は
+      夜空へ帰る(記録しない)。花は"拾った言葉だけ"で咲く。声の解説スロット(声標本の科学で"どんな声だったか"を
+      想像=失われた声の温度を取り戻す。将来micStatsから生成・林博士監修の余地)
+    → o49(2026.07/Opus)四点:①なぞりの和音を1オクターブ上げ音量も上げて聞こえる帯域へ(低すぎ問題)
+      ②読み上げを中性・なめらかに整え、読み上げの間だけ電話帯域の薄い室音を敷く=通話の空気(真のTTSエフェクトは
+      本番のクラウドTTS→Web Audioバンドパスで・アプリ化課題)/読み手は一人の中性の語り手=生の声は聞かせない(匿名)
+      ③拾った言葉は花画面に羅列せず「一つの箱に封じる」(触れると開く)=静謐
+      ④アクセシビリティ:準備画面を「どうやって話すか(声で/文字で)」に=声が出ない人も"通話"できる、
+      相手の言葉は常に文字表示=耳が聞こえなくても使える。文字で話した人は声が無いので、花の科学的根拠を
+      「言葉標本」(文の長さ・打つ間・句読点=言葉のプロソディ)から決定論的に生成=声標本と同じ役割・憲法の決定論を保持
+    → o50(2026.07/Opus)誤解の訂正+癒しへ:サーッというノイズ室音を全廃(苛立ちの元)。相手の"声"を
+      「ぽこぽこ」した心地よい音に変換(どうぶつの森/トモダチコレクション式)=言葉は文字で読み、声は言語でなく
+      癒しの音の連なりに。ペンタトニック・温かいローパス(ラジオのこもり)・水の残響。TTS撤去=下手さも
+      「言葉が入らない」苛立ちも消え、憲法「声色は変換されて届く」に忠実。決定論(同じ文=同じ声)。nanoca=憩いの場所
+    → o53(2026.07/Opus)二点:①誕生画面に「相手の声の分析」と「いま流れている旋律」をはっきり表示。声標本の
+      ことば(光=張り e・ゆらぎ=抑揚 z・余韻)で"どんな声だったか"を言葉に=花と同じ数値が声も語る(物語がつながる)。
+      ②「77秒」→「77往復」:時間の概念を消し、送信のたびにカウントが1減る=秒に追われず言葉の中身を大切に。
+      終話は相手の別れの言葉で静かに溶暗(旧:秒切れ)。導入・ガイド・通話画面の表記を往復へ統一
+    → o54(2026.07)二点:①ぽこぽこ→"ころんころん"へ(base D4→G4に上げ・音程の転がりを0.055秒に伸ばし丸く・
+      減衰も0.15秒に・残響へ0.35の一滴=ほんのりウェット)。②咲き終えた花はひとりでにゆっくり回る(声標本の作法。
+      一周約63秒・満開から約3秒かけて回り出す・指で回す間はゆずる・背景の空のyawには触れない=o34の白い幕を再発させない)
+    → o55(2026.07)公開と助成金の作法:①「この体験と、データの扱いについて」の常設掲示(導入と誕生画面から開ける)
+      =体験版であること(相手はシナリオ)・記録しない約束・端末の外に出るもの(保存時の設計図メタのみ・言葉の中身は出ない)・
+      端末に残るもの(localStorage)・非医療の明示・運営表記(株式会社ナノカ/連絡先/©)。②OGP/description/favicon(星座の7/7)/
+      theme-color=公開サイトの体裁。③aria補強(入力欄・窓口)。透明性=信頼の構造化(誠実さは機能である)
+    → o56(2026.07)GitHubの引っ越し:声標本への導線から旧アカウント(substation26)のURLを撤去。
+      新しい公開先(nanoca-Japan)が決まり次第、koelinkにURLを戻す。本体はgithub.com/nanoca-Japan/opposite-callで公開
+    → o57(2026.07)詩帆の実機報告4点:①なぞりの和音がiPhoneで鳴らない=pointerdown(指を置く)ではACが起きない
+      ことがある→whenAudio(起きてから鳴らす)をchime/着地和音に。touchstartも起動保険に追加
+      ②星空が止まって見える→星の渡りを可視速度に(dr×4)+ホームにもごくまれな流れ星(16〜32秒に一筋・淡く遅く)。
+      天の川は固定のまま=白い幕は再発しない ③改行の作法:文節スパン(.nb)+line-break:strict=行頭の「い」「。」根絶。
+      表記を算用数字に統一(1つ・7つまで・この4つ・8小節。一輪・一度きり・二度と等の慣用は保持)
+      ④ぽこぽこ→「ぴっぽこ」:高いぴっ(1オクターブ上・まっすぐ短く)と丸いぽこ(落差を1.12倍に浅く)を交互に。
+      怖さの正体=低い音程の落下(洞窟の水滴)を構造的に排除。残響0.22で明るく軽く
+    → o58(2026.07)詩帆の実機報告3点:①日本語変換の確定Enterで送信=IME合成中はEnterを無視(compositionstart/end+
+      isComposing+keyCode229の三重ガード)。送信は「送る」か、合成が終わった後のEnterだけ ②通話が秒で切れる件の根絶:
+      相手の台詞をタイマーで全部流すのをやめ、往復駆動へ=相手はあなたの言葉に応えて次のひと言を返す(REPLY_MIN/PER_CHAR)。
+      沈黙が続いたときだけIDLE_NUDGEでそっと続く(打ち切りではない)。終話は相手の物語の終わり or 往復0のみ=秒で切れない
+      ③演出のことば(「静かに夜空へ帰ります」等)が大きすぎ=.noteを小さく静かに(10.5px/opacity)。注意書きは薄めない
+    → o59(2026.07)詩帆の実機報告3点:①改行位置(「ゆらぎ」がゆら/ぎに割れる等)=声の欄のラベルをwhite-space:nowrap・
+      幅を確保して折り返さない ②ページのゴチャつき解消=誕生を二段に:まず花がフルスクリーンで咲く披露(.blooming/
+      タップで早送り)→咲き終えたら夜空に馴染む一枚の「メモ」がふっと立ち上がる(.memoCard・半透明・カード内に二人/声/旋律)。
+      演出は主役の花に集中、情報はメモに整理 ③「光/ゆらぎ/余韻」の詩的表現→声標本の測定=科学の事実へ:
+      高さ(F0 約○○Hz)・流れ(F0の広がり)・光(スペクトル重心)・余韻(減衰)を水準で示し、「明るい声でした」等の平易な一言を併記
+    → o60(2026.07)「ふたりで(対面)モード」新設=林博士との会議で、その場で一緒に体験できる形。一台の端末を交代しながら
+      両者が言葉を打ち、二つの言葉標本(張り・抑揚)を二つの"声"として一輪の花にする(シミュレーションでなく本物の二人)。
+      導入の隅の「ふたりで、いま」ボタン or ?duo=1 から。名前入力→交代制の往復(送るたびに話者が入れ替わる・ぴっぽこの相槌)→
+      拾い→花。誕生画面は二人の名前×名前・言葉標本(声でなく言葉のかたちから測定=F0はつけず誠実に)。マイク不要=会議で確実に動く
+    → o61(2026.07)対面モードに「声で交代する」を追加=林大輔博士(声の科学者)と"声で"体験するため。交代でマイクに話し、
+      話者ごとにF0(自己相関)とスペクトル重心(明るさ)を実測、二つの実際の声から一輪の花に。録音ボタン(●話す→とめて交代)、
+      録音中はライブでF0を表示、誕生画面は二人の実測F0/明るさを提示(その場で測った本物の数値=監修が噛み合う)。
+      生の声は端末外に出ない(波形→数値→音は破棄=憲法)。マイク不可なら文字モードへ静かに退避。声のDSPは純関数で単体検証
+-->
+<style>
+:root{
+  --ink:#e9e7dd; --ink-dim:#9a99a6; --gold:#c9b98a; --line:rgba(233,231,221,.18);
+  --bg0:#070c20; --bg1:#141d42; --warm:#e0b06a; --cool:#8fa8e8;   /* o16:希望のある深藍の空 */
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:radial-gradient(120% 100% at 50% 0%, var(--bg1) 0%, var(--bg0) 70%);
+  color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;   /* o18:ネオ×無限の空 */
+  font-weight:300;
+  overflow:hidden; line-height:1.9; letter-spacing:.06em;
+}
+.en, footer.brand{font-family:"Space Grotesk","Helvetica Neue",sans-serif; font-weight:300}
+#timer{font-family:"Space Mono",monospace}
+#milkyCv{position:fixed; top:0; left:50%; z-index:0; pointer-events:none;
+  transform:translate3d(-50%,0,0);
+  will-change:transform,opacity}                     /* o46:常に画面中央=どの端末幅でも空が途切れない */
+#stars{position:fixed; inset:0; z-index:0; pointer-events:none}   /* o32:will-change撤去(毎フレーム再描画のcanvasには逆効果) */
+.screen{
+  position:fixed; inset:0; z-index:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; padding:6vh 7vw; text-align:center;
+  opacity:0; pointer-events:none; transition:opacity 1.1s ease;
+}
+.screen.active{opacity:1; pointer-events:auto; animation:screenIn 1.5s ease}   /* o21:画面は宇宙の奥からふっと現れる */
+@keyframes screenIn{from{opacity:0; transform:scale(.982)} to{opacity:1; transform:scale(1)}}
+h1{font-size:clamp(26px,6vw,40px); font-weight:500; letter-spacing:.22em}
+.en{font-size:11px; letter-spacing:.42em; color:var(--ink-dim); margin-bottom:14px}
+.lead{margin-top:26px; font-size:clamp(14px,3.6vw,16px); color:var(--ink)}
+.sub{margin-top:14px; font-size:12.5px; color:var(--ink-dim)}
+/* o58:演出のことば(余韻の一文)は、静かに小さく。nanocaは美しく、同時に現実主義。ばかばかしくならないよう控えめに */
+.note{font-size:10.5px; color:var(--ink-dim); opacity:.62; letter-spacing:.08em; line-height:1.85; font-weight:300}
+.rules{margin-top:30px; font-size:12.5px; color:var(--ink-dim); line-height:2.2}
+.demo-badge{
+  margin-top:34px; font-size:11px; color:var(--ink-dim); letter-spacing:.18em;
+  border:1px solid var(--line); border-radius:999px; padding:5px 16px; display:inline-block;
+}
+#logo{width:min(62vw,290px); height:min(62vw,290px); touch-action:none; cursor:pointer;
+  /* o25:drop-shadowフィルタ廃止(iOSで毎フレーム再描画=カクつきの主犯)。にじみはSVG内の光背で表現 */
+  animation:shimmer 6s ease-in-out infinite;                         /* キラッは群れごと・ゆっくり */
+  transition:transform 1.9s ease, opacity 1.7s ease}
+@keyframes shimmer{0%,100%{opacity:.88}50%{opacity:1}}
+.unlocked #logo{transform:scale(1.16); opacity:0}                    /* 空の解除:世界がひらく */
+.unlocked .hinttxt, .unlocked #copy{opacity:0; transition:opacity 1.2s}
+#copy{font-size:clamp(13.5px,3.4vw,17px); font-weight:400; color:var(--ink-dim); letter-spacing:.3em; margin-top:22px}
+.hinttxt{font-size:10px; color:rgba(154,153,166,.55); letter-spacing:.42em; margin-top:4px}
+.profgrid{margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; width:min(360px,86vw)}
+.profgrid label{font-size:11px; color:var(--ink-dim); letter-spacing:.14em; text-align:left; display:flex; flex-direction:column; gap:6px}
+.profgrid select{
+  font-family:inherit; font-size:13.5px; color:var(--ink); letter-spacing:.06em;
+  background:rgba(233,231,221,.05); border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+}
+.profgrid select:focus{outline:none; border-color:var(--gold)}
+.fine{margin-top:44px; font-size:10px; color:rgba(154,153,166,.72); line-height:2.1; letter-spacing:.12em}
+.finer{font-size:9px; color:rgba(154,153,166,.5); letter-spacing:.2em}
+.brandTop{position:fixed; top:calc(env(safe-area-inset-top, 12px) + 12px); left:20px; z-index:2;
+  text-align:left; font-size:11px; letter-spacing:.38em; color:var(--ink); pointer-events:none}   /* o20:インカメを避けて左上 */
+#homeBtn{top:calc(env(safe-area-inset-top, 0px) + 14px)}
+#aidBtn{bottom:calc(env(safe-area-inset-bottom, 0px) + 26px)}
+.preRules{margin-top:34px; width:min(340px,84vw); text-align:left;
+  border-left:1px solid rgba(233,231,221,.14); padding-left:16px}
+.preRules .prT{font-size:10px; letter-spacing:.32em; color:var(--ink-dim); margin-bottom:12px}
+.preRules ul{list-style:none; padding:0; margin:0}
+.preRules li{position:relative; padding-left:15px; margin:7px 0; font-size:10.5px;
+  color:rgba(154,153,166,.8); line-height:1.75; letter-spacing:.1em}
+.preRules li::before{content:""; position:absolute; left:0; top:.72em;
+  width:4px; height:4px; border-radius:50%; background:rgba(201,185,138,.55)}   /* o30:箇条書きの点 */
+.preRules .finer{margin-top:14px; display:block}
+/* o60:対面モードの入口ボタン(導入の隅に、控えめに)+名前入力 */
+#duoEntry{margin-top:26px; font-size:11px; padding:9px 20px; letter-spacing:.14em;
+  color:rgba(201,185,138,.85); border-color:rgba(201,185,138,.3); background:rgba(5,6,15,.3)}
+.unlocked #duoEntry{opacity:0; transition:opacity .8s}
+.duoGrid{margin-top:30px; display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; width:min(360px,86vw)}
+.duoGrid label{font-size:11px; color:var(--ink-dim); letter-spacing:.14em; text-align:left; display:flex; flex-direction:column; gap:6px}
+.duoGrid input{font-family:inherit; font-size:14px; color:var(--ink); letter-spacing:.04em;
+  background:rgba(233,231,221,.05); border:1px solid var(--line); border-radius:8px; padding:11px 13px; width:100%}
+.duoGrid input:focus{outline:none; border-color:var(--gold)}
+button{
+  font-family:inherit; letter-spacing:.14em; cursor:pointer;
+  background:none; color:var(--ink); border:1px solid var(--line);
+  border-radius:999px; padding:13px 34px; font-size:14px; transition:all .5s;
+}
+button:hover{border-color:var(--gold); color:var(--gold)}
+button.primary{border-color:rgba(201,185,138,.55)}
+.btn-row{margin-top:40px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center}
+.tiny{font-size:11px; color:var(--ink-dim); border:none; text-decoration:underline; text-underline-offset:4px; padding:8px}
+footer.brand{position:fixed; bottom:14px; left:0; right:0; text-align:center; font-size:10px; letter-spacing:.3em; color:rgba(154,153,166,.5); pointer-events:none}
+
+/* ── 窓口(静かに常設) ── */
+#aidBtn{
+  position:fixed; right:16px; bottom:34px; z-index:60; font-size:11px; padding:7px 14px;
+  color:rgba(154,153,166,.85); border-color:rgba(233,231,221,.12); background:rgba(5,6,15,.4);
+}
+#aidOverlay, #infoOverlay{
+  position:fixed; inset:0; z-index:70; background:rgba(4,5,12,.93); display:none;
+  align-items:center; justify-content:center; padding:8vw; text-align:left;
+}
+#aidOverlay.open, #infoOverlay.open{display:flex}
+#aidOverlay .card, #infoOverlay .card{max-width:420px; font-size:13px; line-height:2.1}
+#aidOverlay h2, #infoOverlay h2{font-size:14px; font-weight:500; letter-spacing:.2em; margin-bottom:14px; color:var(--gold)}
+#aidOverlay a, #infoOverlay a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line)}
+#aidOverlay .note, #infoOverlay .note{font-size:11px; color:var(--ink-dim); opacity:1; margin-top:16px}   /* 注意書き(医療・©)は薄めない=可読 */
+#infoOverlay .card{max-height:82vh; overflow-y:auto; font-size:12.5px; line-height:2.0}
+#infoOverlay h3{font-size:12px; font-weight:500; letter-spacing:.18em; color:var(--gold); margin:16px 0 6px; opacity:.9}
+.finerLink{cursor:pointer; border-bottom:1px solid rgba(154,153,166,.35)}
+/* o57:日本語の改行の作法 ─ 文節のかたまり(.nb)の間でだけ折り返す。行頭の「い」「。」を根絶 */
+body{line-break:strict}
+.nb{display:inline-block}
+
+/* ── 呼び出し ── */
+#pulse{width:120px; height:120px; border-radius:50%; margin:0 auto 30px;
+  animation:pulse 2.6s ease-in-out infinite}
+/* 光だまりの絵はJSがalphaノイズ焼き込みで生成(視覚感性ガイド2) */
+@keyframes pulse{0%,100%{transform:scale(.86);opacity:.55}50%{transform:scale(1.06);opacity:1}}
+
+/* ── 通話 ── */
+#scrCall{justify-content:flex-start; padding-top:9vh}
+#orbs{position:relative; width:190px; height:150px; margin:2vh auto 0}
+.orb{position:absolute; top:0; width:130px; height:130px; transition:transform .3s ease, opacity .8s}
+#orbP{left:0} #orbU{right:0}
+@media (max-width:520px){ .orb{opacity:.52} }      /* スマホは淡く(ガイド1-4) */
+.quiet .orb, .quiet #pulse{display:none}           /* 静謐モード(ガイド3) */
+#orbP.speaking{animation:orbTalk 1.1s ease-in-out infinite}
+@keyframes orbTalk{0%,100%{transform:scale(.97)}50%{transform:scale(1.06)}}
+#callMeta{margin-top:1vh; font-size:11px; letter-spacing:.24em; color:var(--ink-dim); transition:opacity .4s, filter .4s}
+#earRule{margin-top:4px; font-size:10px; letter-spacing:.16em; color:rgba(154,153,166,.6); transition:opacity .4s, filter .4s}
+#dropCv{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+#timer{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:44px; letter-spacing:.06em; color:rgba(233,231,221,.35); pointer-events:none;
+  transition:transform .18s ease}   /* 二色の上に静かに透過。送るたび、そっと脈打つ(o53) */
+#timerU{position:absolute; left:0; right:0; top:calc(50% + 30px); text-align:center;
+  font-size:10px; letter-spacing:.36em; color:rgba(233,231,221,.26); pointer-events:none}   /* 「往復」の小さな添え字 */
+#orbs{transition:opacity .4s, filter .4s}
+#capStream{transition:opacity .4s, filter .4s}
+#homeBtn{
+  position:fixed; left:16px; top:16px; z-index:60; font-size:11px; padding:7px 14px;
+  color:rgba(154,153,166,.85); border-color:rgba(233,231,221,.12); background:rgba(7,12,32,.4); display:none;
+}
+#capStream{
+  margin-top:3.5vh; width:min(560px,90vw); flex:1; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end; gap:16px; padding-bottom:2vh;
+}
+.cap{
+  font-size:clamp(14px,3.8vw,16.5px); line-height:2.05; opacity:0; transform:translateY(10px);
+  transition:opacity 1s ease, transform 1s ease, color .6s; cursor:pointer; padding:2px 8px;
+}
+.cap.show{opacity:1; transform:none}
+.cap.old{opacity:.32; font-size:.86em}
+.cap.gone{opacity:0}
+.cap.user{color:var(--cool); font-size:.92em}
+.cap.picked{color:var(--gold)}
+.cap.picked::after{content:" ❋"; font-size:.8em}
+.cap.listenline{color:var(--ink-dim); font-size:.9em}
+.cap.sys{color:var(--ink-dim); font-size:.78em; cursor:default; letter-spacing:.12em}
+.cap .mask{filter:blur(5px); -webkit-filter:blur(5px); user-select:none}   /* 個人につながる言葉のモザイク */
+#pickHint{font-size:10.5px; color:var(--ink-dim); letter-spacing:.16em; margin-bottom:2.5vh}
+#pickCount{color:var(--gold)}
+#typeBar{display:none; gap:8px; width:min(460px,88vw); margin:6px auto 0; align-items:center}
+#typeInput{flex:1; font-family:inherit; font-size:14px; color:var(--ink); letter-spacing:.03em;
+  background:rgba(233,231,221,.06); border:1px solid var(--line); border-radius:999px; padding:11px 16px}
+#typeInput:focus{outline:none; border-color:var(--gold)}
+#typeBar button{font-size:12px; padding:10px 18px}
+/* o61:声で交代する録音ボタン(大きく・押しやすく) */
+#duoRec{display:none; justify-content:center; margin:6px auto 0}
+#duoRecBtn{font-size:14px; padding:15px 34px; letter-spacing:.1em; color:var(--gold);
+  border-color:rgba(201,185,138,.5); background:rgba(201,185,138,.06); min-width:min(300px,80vw)}
+#duoRecBtn.recording{color:#fff; border-color:rgba(224,176,106,.85); background:rgba(224,176,106,.16);
+  animation:recPulse 1.4s ease-in-out infinite}
+@keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(224,176,106,.30)}50%{box-shadow:0 0 0 10px rgba(224,176,106,0)}}
+#callBtns{display:flex; gap:16px; margin-top:10px; margin-bottom:calc(env(safe-area-inset-bottom,0px)+5vh); justify-content:center; flex-wrap:wrap}
+#callBtns button{font-size:11.5px; padding:9px 18px}   /* o20:小さく・離して誤タップ回避 */
+/* o48:通話中は拾わない=印も出さない(ただ居るだけ) */
+/* ─ 拾いの画面(scrKeep) ─ */
+#scrKeep{justify-content:flex-start; padding-top:calc(env(safe-area-inset-top,0px)+7vh); padding-bottom:calc(env(safe-area-inset-bottom,0px)+90px); overflow-y:auto}
+#scrKeep>*{flex-shrink:0}
+#keepVoice{margin-top:12px; font-size:13px; color:var(--gold); line-height:2; letter-spacing:.06em; max-width:min(420px,86vw)}
+.keepGuide{margin-top:22px; font-size:13px; color:var(--ink-dim); line-height:2.1}
+#keepCount{color:var(--gold)}
+#keepWords{margin-top:22px; width:min(460px,88vw); display:flex; flex-direction:column; gap:10px}
+.kw{font-size:14.5px; line-height:1.9; color:var(--ink-dim); letter-spacing:.04em; cursor:pointer;
+  padding:9px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.02);
+  opacity:0; transform:translateY(-14px); transition:opacity 1s ease, transform 1s ease, color .5s, border-color .5s, background .5s}
+.kw.show{opacity:1; transform:none}
+.kw.kept{color:var(--gold); border-color:rgba(201,185,138,.5); background:rgba(201,185,138,.07)}
+.kw.kept::after{content:" ❋"; font-size:.8em}
+@keyframes markPulse{0%,100%{opacity:.22}50%{opacity:.85}}
+#btnBlock{color:rgba(154,153,166,.7); border-color:rgba(233,231,221,.1)}
+
+/* ── 誕生(花)o59:①花はフルスクリーンで主役 ②咲き終えたら夜空に馴染むメモが現れる ── */
+#scrEnd{justify-content:flex-start; padding-top:calc(env(safe-area-inset-top,0px)+4vh); padding-bottom:calc(env(safe-area-inset-bottom,0px)+96px); overflow-y:auto}
+#scrEnd .en{margin-top:4px; transition:opacity 1s ease}
+#scrEnd>*{flex-shrink:0}
+#flowerWrap{width:min(300px,68vw); height:min(396px,90vw); margin:0 auto;
+  transition:width 1.4s cubic-bezier(.4,0,.2,1), height 1.4s cubic-bezier(.4,0,.2,1), margin 1.4s ease}
+canvas{display:block; width:100%; height:100%}
+#cvs{touch-action:none; cursor:grab}
+#cvs:active{cursor:grabbing}
+/* 開花中(.blooming):花だけを大きく画面中央に=フルスクリーンの披露。メモは流れから外して伏せる */
+#scrEnd.blooming{justify-content:center; padding-top:0}
+#scrEnd.blooming #endTitle{position:fixed; top:calc(env(safe-area-inset-top,0px)+4vh); left:0; right:0; opacity:.5; z-index:2}
+#scrEnd.blooming #flowerWrap{width:min(360px,82vw); height:min(500px,112vw); margin:0 auto}
+#scrEnd.blooming #endMemo{display:none}
+/* 咲き終えたメモ:夜空に貼られた一枚。静かに立ち上がる */
+#endMemo{width:min(420px,90vw); margin:2.6vh auto 0}
+#scrEnd:not(.blooming) #endMemo{animation:memoIn 1.5s ease both}
+@keyframes memoIn{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
+.memoCard{background:rgba(255,255,255,.028); border:1px solid rgba(233,231,221,.10);
+  border-radius:16px; padding:20px 20px 22px; text-align:left; backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px)}
+.memoDiv{height:1px; background:linear-gradient(90deg,transparent,rgba(233,231,221,.14),transparent); margin:16px 0}
+/* 二人(交差した星):メモの見出し=横並び・小さく */
+#endWho{display:flex; align-items:center; justify-content:center; gap:14px}
+#endWho .who{display:flex; align-items:center; gap:8px; min-width:0}
+#endWho .dot{flex:none; width:8px; height:8px; border-radius:50%}
+#endWho .wl{font-size:11.5px; line-height:1.55; color:var(--ink); letter-spacing:.06em; text-align:left; white-space:nowrap}
+#endWho .whoX{flex:none; font-size:13px; color:rgba(201,185,138,.6)}
+/* o59:声の測定(声標本の科学ワード:F0などの事実)+平易な一言 */
+#endVoice .evTtl{font-size:10.5px; letter-spacing:.22em; color:rgba(201,185,138,.72); text-align:center; margin-bottom:12px}
+#endVoice .evRow{display:flex; gap:12px; align-items:baseline; margin:7px 0}
+#endVoice .evK{flex:none; min-width:5.4em; font-size:10.5px; letter-spacing:.06em; color:var(--gold); opacity:.82; white-space:nowrap}   /* o59:ラベルは折り返さない */
+#endVoice .evV{flex:1; font-size:12px; color:var(--ink); letter-spacing:.03em; line-height:1.7}
+#endVoice .evV .fact{color:var(--ink)}
+#endVoice .evV .plain{color:rgba(233,231,221,.62); font-size:11px}
+#endVoice .evPoem{margin-top:13px; font-size:11.5px; color:rgba(233,231,221,.62); letter-spacing:.05em; text-align:center; line-height:1.85}
+/* いま流れている旋律 */
+#endMusic{font-size:12px; color:var(--gold); letter-spacing:.05em; line-height:1.85; text-align:center}
+#endMusic .note{display:block; margin-top:5px; color:rgba(233,231,221,.5); font-size:10.5px; opacity:1}
+/* o49:拾った言葉を封じる箱 */
+#wordBox{margin:16px auto 0; width:100%; border:1px solid rgba(201,185,138,.30);
+  border-radius:14px; background:rgba(201,185,138,.045); cursor:pointer; overflow:hidden; text-align:center}
+.wbLid{padding:13px 16px; font-size:12px; color:var(--gold); letter-spacing:.08em}
+.wbSeal{margin-right:8px; opacity:.8}
+.wbInner{max-height:0; opacity:0; transition:max-height .7s ease, opacity .6s ease; padding:0 16px}
+#wordBox.open .wbInner{max-height:340px; opacity:1; padding-bottom:12px}
+.wbW{font-size:12.5px; color:var(--ink); line-height:1.95; margin:5px 0; letter-spacing:.03em}
+.wbHint{font-size:9.5px; color:rgba(154,153,166,.5); letter-spacing:.16em; padding-bottom:10px}
+#wordBox.open .wbHint{display:none}
+#endCode{margin-top:14px; font-size:9.5px; letter-spacing:.2em; color:rgba(154,153,166,.5); text-align:center}
+#scrEnd .btn-row{margin-top:18px; gap:10px}
+#scrEnd .btn-row button{padding:10px 18px; font-size:12px; letter-spacing:.08em}
+#endNote{margin-top:14px; font-size:10px; color:var(--ink-dim); opacity:.6; line-height:1.85; text-align:center}   /* o59:静かに小さく */
+
+/* ── 遮断後 ── */
+#scrQuiet .lead{color:var(--ink-dim)}
+.koelink{margin-top:18px; font-size:11px; letter-spacing:.14em}
+.koelink a{color:rgba(201,185,138,.75); text-decoration:none; border-bottom:1px solid rgba(201,185,138,.3)}
+@media (max-height:640px){ #orbs{transform:scale(.8); margin-top:0} .rules{margin-top:18px} }
+</style>
+</head>
+<body>
+<canvas id="milkyCv"></canvas>
+<canvas id="stars"></canvas>
+
+<!-- ═══ 導入(顔は軽く。誰でも気軽にかけていい電話) ═══ -->
+<section id="scrIntro" class="screen active">
+  <!-- ロゴ:7/7 ─ 二つの受話器(両端に丸をもつ弧=7の横棒)が点対称に置かれ、
+       斜めの線は中心を挟んで一本の「/」。その線を指でなぞると、電話がかかる -->
+  <!-- ロゴ=星座の7/7。細い線で星を結ぶ。太い線・塗りの●は使わない(視覚感性ガイド:詩帆のバグ報告 o7) -->
+  <svg id="logo" viewBox="0 0 120 120" aria-label="Opposite Call ─ ながれる星をなぞって、かける">
+    <defs>
+      <radialGradient id="hintGlow">
+        <stop offset="0%" stop-color="rgba(255,243,226,.75)"/>
+        <stop offset="100%" stop-color="rgba(255,243,226,0)"/>
+      </radialGradient>
+    </defs>
+    <!-- 上の7(金の星座。o18:結線は淡く細く=リアルな星座。主星ににじみと細い十字) -->
+    <path d="M56 28 L78 21 L93 25 L79 39 L66 53" fill="none" stroke="rgba(201,185,138,.34)" stroke-width="0.55"/>
+    <circle cx="93" cy="25" r="6.5" fill="url(#hintGlow)" opacity="0.45"/>
+    <!-- 一番星=なぞりの始点(o22:恒星としてまばゆく) -->
+    <circle cx="56" cy="28" r="10" fill="url(#hintGlow)" opacity="0.85"/>
+    <path d="M56 21.5 L56 34.5 M49.5 28 L62.5 28" stroke="rgba(255,243,226,.7)" stroke-width="0.4"/>
+    <circle cx="56" cy="28" r="1.9" fill="#fff3e2"/>
+    <circle cx="78" cy="21" r="0.7" fill="#d8c99a"/>
+    <circle cx="93" cy="25" r="1.45" fill="#e6d9ae"/>
+    <path d="M93 21 L93 29 M89 25 L97 25" stroke="rgba(230,217,174,.5)" stroke-width="0.32"/>
+    <circle cx="79" cy="39" r="0.7" fill="#d8c99a"/>
+    <circle cx="66" cy="53" r="1.05" fill="#d8c99a"/>
+    <!-- 下の7(月白の星座・点対称) -->
+    <path d="M64 92 L42 99 L27 95 L41 81 L54 67" fill="none" stroke="rgba(233,231,221,.30)" stroke-width="0.55"/>
+    <circle cx="27" cy="95" r="6.5" fill="url(#hintGlow)" opacity="0.42"/>
+    <!-- 着地の星(o24):なぞりが近づくほど灯り、繋がった瞬間に点る -->
+    <circle id="goalGlow" cx="64" cy="92" r="9" fill="url(#hintGlow)" opacity="0"/>
+    <circle id="goalStar" cx="64" cy="92" r="0.95" fill="#e9e7dd"/>
+    <circle cx="42" cy="99" r="0.7" fill="#e9e7dd"/>
+    <circle cx="27" cy="95" r="1.45" fill="#f2f0e6"/>
+    <path d="M27 91 L27 99 M23 95 L31 95" stroke="rgba(242,240,230,.45)" stroke-width="0.32"/>
+    <circle cx="41" cy="81" r="0.7" fill="#e9e7dd"/>
+    <circle cx="54" cy="67" r="1.05" fill="#e9e7dd"/>
+    <!-- なぞった軌跡=星から星へ、すべての星を通る星屑の線(細い芯+淡い光背) -->
+    <path id="traceHalo" d="M56 28 L78 21 L93 25 L79 39 L66 53 L54 67 L41 81 L27 95 L42 99 L64 92" pathLength="100" fill="none"
+      stroke="rgba(255,243,226,.12)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0 100"/>
+    <path id="traceLine" d="M56 28 L78 21 L93 25 L79 39 L66 53 L54 67 L41 81 L27 95 L42 99 L64 92" pathLength="100" fill="none"
+      stroke="rgba(240,236,226,.8)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0 100"/>
+    <g id="traceHint" transform="translate(-20 -20)">
+      <circle r="5.5" fill="url(#hintGlow)"/>
+      <path d="M0 -3.4 L0 3.4 M-3.4 0 L3.4 0" stroke="rgba(255,243,226,.75)" stroke-width="0.5" stroke-linecap="round"/>
+      <circle r="1.0" fill="#fff7ea"/>
+    </g>
+    <circle id="centerDot" cx="60" cy="60" r="1.1" fill="rgba(240,236,226,.55)"/>
+  </svg>
+  <div class="hinttxt">端の星から 端の星へ なぞると、<br>あなたの反対側へ 電話が繋がります</div>
+  <h1 id="copy">一方その頃、どこかのだれかは。</h1>
+  <div class="preRules">
+    <div class="prT">繋がる前に</div>
+    <ul>
+      <li><span class="nb">やりとりは、77往復。</span><span class="nb">時間は、ありません。</span></li>
+      <li><span class="nb">お互いの声色は変換されて、</span><span class="nb">相手に届きます。</span></li>
+      <li><span class="nb">メッセージは、送れません。</span></li>
+      <li><span class="nb">イヤホン・ヘッドホンをつけて、</span><span class="nb">あなただけに。</span></li>
+      <li><span class="nb">スピーカーにはできません。</span><span class="nb">まわりと分け合わないでください。</span></li>
+      <li><span class="nb">個人につながる情報は、</span><span class="nb">声にしてはいけません。</span></li>
+      <li><span class="nb">通話は、記録されません。</span></li>
+      <li><span class="nb">同じ相手とは、</span><span class="nb">二度とつながりません。</span></li>
+    </ul>
+    <div class="finer">体験プロトタイプ ─ 相手はシミュレーションです ─ nanoca inc.<br>
+      <span class="finerLink" onclick="event.stopPropagation();document.getElementById('infoOverlay').classList.add('open')">この体験と、データの扱いについて</span></div>
+  </div>
+  <button id="duoEntry" onclick="event.stopPropagation();goDuoSetup()">ふたりで、いま ─ 対面で体験する ▸</button>
+</section>
+<div class="en brandTop">OPPOSITE CALL</div>
+
+<!-- ═══ o60/o61:ふたりで(対面)モードの支度 ─ 一台で、目の前の相手と。声でも、文字でも ═══ -->
+<section id="scrDuo" class="screen">
+  <p class="lead">ふたりで、いま。</p>
+  <p class="sub"><span class="nb">一台の端末を交代しながら、</span><span class="nb">声を交わします。</span><br><span class="nb">ふたりの声から、</span><span class="nb">一輪の花が生まれます。</span></p>
+  <div class="duoGrid">
+    <label>あなた<input id="duoA" type="text" placeholder="名前（省略可）" autocomplete="off" maxlength="12"></label>
+    <label>お相手<input id="duoB" type="text" placeholder="名前（省略可）" autocomplete="off" maxlength="12"></label>
+  </div>
+  <div class="btn-row" style="flex-direction:column; gap:12px; margin-top:30px">
+    <button class="primary" onclick="startDuoVoice()">声で、交代する</button>
+    <button onclick="startDuo()">文字で、交代する</button>
+  </div>
+  <p class="note" id="duoMicNote" style="margin-top:18px; max-width:min(360px,86vw)"><span class="nb">声モードは、交代でマイクに話します。</span><span class="nb">F0(声の高さ)などを、その場で実測します。</span><br><span class="nb">生の声は端末の外に出ません</span><span class="nb">（その場で数値にして、音は破棄）。</span></p>
+</section>
+
+<!-- ═══ 使い方ガイド(o28:初回だけの4枚。アプリの作法) ═══ -->
+<section id="scrGuide" class="screen" onclick="guideNext()">
+  <div class="en" id="gStep">1 / 4</div>
+  <h1 id="gTitle" style="font-size:clamp(17px,4.6vw,22px); letter-spacing:.2em; margin-top:18px"></h1>
+  <p class="sub" id="gSub" style="margin-top:18px"></p>
+  <p class="hinttxt" id="gTap" style="margin-top:40px">タップで、次へ</p>
+</section>
+
+<!-- ═══ プロフィール(o17:本人確認とは別に、相手に見えるのはこれだけ) ═══ -->
+<section id="scrProfile" class="screen">
+  <p class="lead">あなたの声を教えてください</p>
+  <p class="sub"><span class="nb">相手に見えるのは、</span><span class="nb">この4つだけです。</span><br><span class="nb">この声から、</span><span class="nb">できるだけ遠い誰かに</span><span class="nb">つながります。</span></p>
+  <div class="profgrid">
+    <label>都道府県<select id="pfPref"></select></label>
+    <label>仕事<select id="pfJob"></select></label>
+    <label>年齢層<select id="pfAge"></select></label>
+    <label>今の気持ち<select id="pfMood"></select></label>
+  </div>
+  <div class="btn-row">
+    <button class="primary" onclick="confirmProfile()">この声で、つながる</button>
+  </div>
+</section>
+
+<!-- ═══ 準備(o49:話し方を選ぶ=声が出ない人・耳が聞こえない人も"通話"できる) ═══ -->
+<section id="scrPrep" class="screen">
+  <p class="lead">どうやって、話しますか?</p>
+  <p class="sub"><span class="nb">相手の言葉は、</span><span class="nb"><strong>いつも画面に文字で出ます</strong>。</span><br><span class="nb">だから、耳が聞こえなくても大丈夫。</span><span class="nb">声でも、文字でも。</span></p>
+  <div class="btn-row" style="flex-direction:column; gap:12px; margin-top:34px">
+    <button class="primary" onclick="startCalling('voice')">声で、話す</button>
+    <button onclick="startCalling('text')">文字で、話す</button>
+  </div>
+  <p class="sub" style="margin-top:24px; font-size:11.5px"><span class="nb">声で話すとき、</span><span class="nb">生の声はどこにも送られません。</span><br><span class="nb">変換された言葉だけが、</span><span class="nb">相手に届きます。</span><span class="nb">イヤホンをおすすめします。</span></p>
+</section>
+
+<!-- ═══ 呼び出し ═══ -->
+<section id="scrCalling" class="screen">
+  <div id="pulse"></div>
+  <p class="lead">呼んでいます ──</p>
+  <p class="sub">あなたの反対側を探しています</p>
+</section>
+
+<!-- ═══ 通話 ═══ -->
+<section id="scrCall" class="screen">
+  <!-- o20:二人の光から雫が落ち、根が生え、77秒後にその根から花が咲く -->
+  <canvas id="dropCv"></canvas>
+  <div id="orbs"><div id="orbP" class="orb"></div><div id="orbU" class="orb"></div><div id="timer">77</div><div id="timerU">往復</div></div>
+  <div id="callMeta"><span class="nb">お互いの声色は、</span><span class="nb">変換されて届いています</span></div>
+  <div id="earRule"><span class="nb">イヤホンで、あなただけに。</span><span class="nb">まわりと分け合わないでください。</span></div>
+  <div id="capStream"></div>
+  <div id="pickHint">いまは、ただ　言葉と。<br><span class="note">拾うのは、通話のあとで</span></div>
+  <div id="typeBar">
+    <!-- o58:日本語変換の確定Enterでは送らない(IME合成中はガード)。送信は「送る」ボタン、または合成が終わった後のEnterだけ -->
+    <input id="typeInput" type="text" placeholder="言葉を打つ…" autocomplete="off" aria-label="あなたの言葉を入力"
+      enterkeyhint="send"
+      oncompositionstart="this.dataset.ime='1'"
+      oncompositionend="this.dataset.ime=''"
+      onkeydown="if(event.key==='Enter'&&this.dataset.ime!=='1'&&!event.isComposing&&event.keyCode!==229){event.preventDefault();sendTyped();}">
+    <button onclick="sendTyped()">送る</button>
+  </div>
+  <!-- o61:声で交代する対面モードの録音ボタン(声で話す→とめて交代) -->
+  <div id="duoRec"><button id="duoRecBtn" onclick="duoRecToggle()">● 話す</button></div>
+  <div id="callBtns">
+    <button id="btnMute" onclick="toggleMute()">ミュート</button>
+    <button onclick="endCall('user')">通話を終える</button>
+    <button id="btnBlock" onclick="blockCall()">遮断</button>
+  </div>
+</section>
+
+<!-- ═══ 拾い(o48:通話の後・時間制限なし・七つまで) ═══ -->
+<section id="scrKeep" class="screen">
+  <div class="en">KEEP WHAT REACHED YOU</div>
+  <p class="lead">線は、切れました。</p>
+  <p class="sub" id="keepVoice"></p>
+  <p class="keepGuide"><span class="nb">相手の言葉が、</span><span class="nb">夜に散らばっています。</span><br><span class="nb">手元に残したい言葉に、</span><span class="nb">そっと触れて。</span><br><span class="note nb">7つまで　─　<span id="keepCount">0</span> / 7</span></p>
+  <div id="keepWords"></div>
+  <div class="btn-row"><button class="primary" id="keepGo" onclick="goBloom()">この言葉で、咲かせる</button></div>
+  <p class="note" style="margin-top:16px; opacity:.5"><span class="nb">拾わなかった言葉は、</span><span class="nb">静かに夜空へ帰ります。</span></p>
+</section>
+
+<!-- ═══ 誕生(o59:まず花がフルスクリーンで咲く→夜空に馴染むメモへ) ═══ -->
+<section id="scrEnd" class="screen">
+  <div class="en" id="endTitle">OPPOSITE FLOWER #001</div>
+  <div id="flowerWrap"><canvas id="cvs"></canvas></div>
+  <!-- o59:咲き終えたら、この一通のメモがそっと現れる(夜空に貼られた記録) -->
+  <div id="endMemo">
+    <div class="memoCard">
+      <div id="endWho"></div>
+      <div class="memoDiv"></div>
+      <!-- o59:相手がどんな声だったか=声標本の測定(F0などの事実)+平易な一言 -->
+      <div id="endVoice"></div>
+      <div class="memoDiv"></div>
+      <!-- o59:いま流れている旋律 -->
+      <p id="endMusic"></p>
+    </div>
+    <!-- o49:拾った言葉は羅列せず、一つの箱に封じる。触れると、そっと開く -->
+    <div id="wordBox" onclick="this.classList.toggle('open')">
+      <div class="wbLid"><span class="wbSeal">❋</span><span id="wbCount"></span>の言葉を、封じました</div>
+      <div class="wbInner" id="wbInner"></div>
+      <div class="wbHint">触れると、開きます</div>
+    </div>
+    <div class="btn-row">
+      <button id="btnMelody" onclick="playMelody()">旋律を聴く</button>
+      <button onclick="saveVideo(this)">設計図を動画で保存</button>
+      <button class="tiny" onclick="saveImage()">画像で保存</button>
+    </div>
+    <div id="endCode"></div>
+    <p id="endNote"><span class="nb">通話は、残っていません。</span><span class="nb">残るのは、この一輪と、封じた言葉、旋律だけ。</span><span class="nb">同じ設計図を、相手も持ち帰りました。</span></p>
+    <!-- 声標本の新しい公開先(nanoca-Japan)が決まったら、ここに <a href="新URL"> を戻す(旧substation26は使わない) -->
+    <p class="koelink">声そのものを、標本にする ── KOE-HYOHON</p>
+    <p class="koelink" style="margin-top:4px"><span class="finerLink" style="font-size:10px;color:rgba(154,153,166,.7)" onclick="document.getElementById('infoOverlay').classList.add('open')">この体験と、データの扱いについて</span></p>
+  </div>
+</section>
+
+<!-- ═══ 遮断後 ═══ -->
+<section id="scrQuiet" class="screen">
+  <p class="lead">通話を切りました。</p>
+  <p class="sub">ここには、あなた一人の静かな場所があります。<br>この画面を閉じても、何も残りません。</p>
+</section>
+
+<button id="homeBtn" onclick="location.reload()">ホーム</button>
+<button id="aidBtn" aria-label="つらさが強いときの専門窓口を開く" onclick="document.getElementById('aidOverlay').classList.add('open')">窓口</button>
+<div id="aidOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="card">
+    <h2>つらさが強いときの、専門の窓口</h2>
+    #いのちSOS <a href="tel:0120061338">0120-061-338</a>(24時間)<br>
+    よりそいホットライン <a href="tel:0120279338">0120-279-338</a>(24時間)<br>
+    いのちの電話 <a href="tel:0120783556">0120-783-556</a>(毎日16-21時)<br>
+    18歳以下: チャイルドライン <a href="tel:0120997777">0120-99-7777</a>(毎日16-21時)<br>
+    18歳以下: 子供SOSダイヤル <a href="tel:0120078310">0120-0-78310</a>(24時間)<br>
+    <p class="note">Opposite Call は治療・相談の窓口ではありません。<br>専門の支えが必要なときは、上の窓口へ。<br>(番号は2026年7月時点。厚生労働省「まもろうよこころ」参照)</p>
+    <div class="btn-row"><button class="tiny" onclick="document.getElementById('aidOverlay').classList.remove('open')">とじる</button></div>
+  </div>
+</div>
+
+<!-- ═══ o55:この体験と、データの扱いについて(運営表記・プライバシー=助成金と公開の作法) ═══ -->
+<div id="infoOverlay" role="dialog" aria-label="この体験とデータの扱いについて" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="card">
+    <h2>この体験と、データの扱いについて</h2>
+
+    <h3>これは、何ですか</h3>
+    Opposite Call は「一度きり・77往復・二度と繋がらない」通話の<strong>体験プロトタイプ</strong>です。
+    この版では、あなたの反対側にいる相手は<strong>実在の人ではなく、あらかじめ書かれた物語(シナリオ)</strong>です。
+    実際に見知らぬ誰かと繋がるサービスは、開発中です。
+
+    <h3>記録しないこと(このサービスの約束)</h3>
+    ・通話の内容(あなたが話した言葉・打った言葉)は、<strong>録音も保存も送信もされません</strong>。すべて、この画面を閉じると消えます。<br>
+    ・あなたの生の声は、端末の外に出ません。マイクの音はこの端末の中だけで「花の設計図」の数値になり、音そのものは破棄されます。<br>
+    ・拾った言葉も、この端末の中だけのものです。
+
+    <h3>端末の外に出るもの(これだけです)</h3>
+    「設計図を保存」を選んだときにだけ、次の情報が nanoca に届きます:
+    設計図番号・花の系統・日付・プロフィール区分(都道府県/職業/年代/気持ち)・拾った言葉の<strong>数</strong>。
+    言葉の中身は、届きません。保存を選ばなければ、何も送られません。
+
+    <h3>端末に残るもの</h3>
+    花の通し番号と「ガイドを見た」印だけを、あなたの端末が覚えます(localStorage)。ブラウザの履歴削除で消せます。
+
+    <h3>これは医療ではありません</h3>
+    Opposite Call は治療・カウンセリング・相談窓口ではありません。
+    つらさが強いときは、右下の「窓口」から専門の支えへ。
+
+    <h3>運営</h3>
+    株式会社ナノカ(nanoca inc.)<br>
+    連絡先: <a href="mailto:shiho.oura0707@gmail.com">shiho.oura0707@gmail.com</a>
+    <p class="note">© 2026 nanoca inc. All rights reserved.<br>
+    本プロトタイプの文章・演出・設計図の仕組み(声標本/構図文法)の無断複製・転用はご遠慮ください。</p>
+    <div class="btn-row"><button class="tiny" onclick="document.getElementById('infoOverlay').classList.remove('open')">とじる</button></div>
+  </div>
+</div>
+
+<footer class="brand">OPPOSITE CALL 2026.07-o61 ─ nanoca inc.</footer>
+
+<script>
+"use strict";
+/* ═══════════ 調整ダイヤル(効く数字はここに集約) ═══════════ */
+const DIAL={
+  CALL_SECONDS:77,       // (旧)通話の長さ。o53で「時間」を廃し「往復」に置き換え
+  MAX_EXCHANGES:77,      // o53:通話は77往復(送信ごとに1減る)。時間の概念を消し、言葉の中身を大切に(7/7生まれ)
+  REPLY_MIN_MS:1100,     // o58:あなたが送ってから、相手が応えるまでの最短の間
+  REPLY_PER_CHAR:55,     // o58:あなたの言葉が長いほど、相手は少し長く受けとめてから応える
+  IDLE_NUDGE_MS:12000,   // o58:長い沈黙のあとだけ、相手がそっと続ける(壁時計の打ち切りではない=時間で切れない)
+  CONNECT_MS:5600,       // 呼び出しの長さ
+  FAREWELL_GRACE:6.5,    // 別れの言葉から終話までの間
+  MAX_PICKS:7,           // 拾える言葉の数=七つ(七夕。7/7・77秒と結ぶ。o48)
+  BLOOM_SECONDS:8.0,     // 開花の長さ
+  PARTNER_VOL:0.042,     // 相手の声(音)の音量(o26:心地よく一段下げ)
+  MELODY_VOL:0.07,       // 誕生の旋律の音量(o26)
+  RING_VOL:0.016,        // 呼び出し音の音量(o14:最初の音はささやきに)
+  ATTACK:0.45,           // 音の立ち上がり(0.4秒以上=指の腹。音の作法)
+  WATER_LP:1200,         // 水のローパス(Hz)
+  BPM:61,                // 水の呼吸(全音符=1小節)
+  TIME_SCALE:1.0,        // 検証用の時間倍率(?fast=1で0.16)
+};
+const FAST=/[?&]fast=1/.test(location.search);
+if(FAST){DIAL.TIME_SCALE=0.16; DIAL.CONNECT_MS=1400;}
+const QUIET=/[?&]quiet=1/.test(location.search);   // 静謐モード(視覚感性ガイド3)
+if(QUIET) document.body.classList.add("quiet");
+const DUOPARAM=/[?&]duo=1/.test(location.search);  // o60:?duo=1 で対面モードの支度から始める(会議で即デモ)
+
+/* ═══════════ 決定論の道具(Math.random不使用) ═══════════ */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+const c01=v=>Math.max(0,Math.min(1,v));
+/* o57:日本語の改行の作法 ─ 句読点で区切った文節を折り返しの単位に(古いiPhoneでも動く書き方) */
+const nbWrap=s=>String(s).replace(/([^。、]+[。、]?)/g,'<span class="nb">$1</span>');
+
+/* ═══════════ 相手のシナリオ(日付で決定論的に選択) ═══════════ */
+const SCENARIOS=[
+ {id:"tromso", place:"ノルウェー・白夜の漁港", hue:196, area:"トロムソ", who:"漁師", age:"40代", mood:"楽",
+  voice:"低くて、ゆっくり。潮でかすれた、あたたかい声でした。", vpitch:0.7, lines:[
+  {t:2,  x:"もしもし？ ……ああ、つながった。波の音、うるさくないですか。"},
+  {t:9,  x:"いま船の甲板を洗い終えたところです。朝の4時。こっちは白夜で、太陽が沈まないんですよ。"},
+  {t:17, x:"今日はサバが2トン。手が魚くさいまま電話してます、すみません。"},
+  {t:25, x:"──そっちは今、朝ですか。夜ですか。", listen:true},
+  {t:39, x:"同じ時間に、ぜんぜん違う空があるんですね。"},
+  {t:47, x:"祖父がよく言ってました。時化の海の下ほど、魚が集まるって。荒れてる場所の下に、いちばん命がいるんだと。"},
+  {t:57, x:"こっちはこれから氷を積んで、少しだけ寝ます。"},
+  {t:63, x:"じゃあ、そろそろ。……名前も知らないけど、話せてよかった。良い一日を。", end:true},
+ ]},
+ {id:"savanna", place:"ケニア・夕暮れのサバンナ", hue:40, area:"サバンナ", who:"獣医助手", age:"20代", mood:"喜",
+  voice:"高めで、少し早口。明るく弾む、澄んだ声でした。", vpitch:1.2, lines:[
+  {t:2,  x:"もしもし。聞こえますか？ こちらは、いま夕方の6時前です。"},
+  {t:9,  x:"草原の真ん中の診療キャンプにいます。獣医の助手です。地平線まで、ぜんぶ草。"},
+  {t:17, x:"今日は仔ゾウの点滴を替えました。母親とはぐれた子で、朝からずっと鳴いていて。"},
+  {t:25, x:"でもさっき、ミルクを飲んだんです。バケツに半分。みんなで拍手しました。"},
+  {t:33, x:"──あ、いま地平線がオレンジになってきた。そっちの空は、何色ですか。", listen:true},
+  {t:47, x:"いいですね。ぜんぜん違う空だ。"},
+  {t:55, x:"ここでは困りごとは夜、焚き火のそばで話すんです。火があると、話せるので。"},
+  {t:63, x:"仔ゾウが呼んでいるので、行きますね。二度と話せないの、少し惜しいな。……お元気で。", end:true},
+ ]},
+ {id:"atacama", place:"チリ・アタカマ砂漠の天文台", hue:262, area:"アタカマ", who:"天文台のコック", age:"30代", mood:"哀",
+  voice:"中くらいの高さで、静か。夜のように落ち着いた声でした。", vpitch:0.9, lines:[
+  {t:2,  x:"もしもし。……おお、本当に誰かにつながるんだ、これ。"},
+  {t:9,  x:"ここは標高5000メートル、砂漠の天文台です。私は研究者じゃなくて、食堂のコックですけど。"},
+  {t:17, x:"いま夜中の2時。観測の人たちの夜食に、スープを80人分仕込んだところです。"},
+  {t:25, x:"空気が薄いから、お湯が90度で沸くんですよ。パスタが心底むずかしい。"},
+  {t:33, x:"──そっちで最近、いちばん美味しかったものは何ですか。", listen:true},
+  {t:47, x:"いいなあ。今度スープの隠し味にしてみます。"},
+  {t:55, x:"屋上に出ると、天の川が濃すぎて影ができるんです。今夜は、知らない人と話せた。"},
+  {t:63, x:"そろそろパンの発酵を見に行きます。……あなたの明日のごはんが、あたたかいものでありますように。", end:true},
+ ]},
+ {id:"steppe", place:"モンゴル・移動中の草原", hue:96, area:"草原", who:"遊牧の人", age:"50代", mood:"凪",
+  voice:"低く、間をおいて話す。風のようにかすれた声でした。", vpitch:0.72, lines:[
+  {t:2,  x:"……もしもし。風の音しか、聞かせるものがないのですが。"},
+  {t:9,  x:"いま馬の群れと移動中です。季節の引っ越しで、家ごと草原を歩いています。"},
+  {t:17, x:"昨日、仔馬が生まれました。まだ足がぷるぷるで、立つのに40分かかりました。"},
+  {t:25, x:"──あなたの街に、地平線はありますか。建物で切れていない、まっすぐな線。", listen:true},
+  {t:39, x:"なければ今日は、私が二人分、見ておきます。"},
+  {t:47, x:"ここでは、悩んだら馬で走れと言われます。悩みが小さくなるんじゃなくて、空が大きくなるんですが。"},
+  {t:57, x:"羊が呼んでいるので、もう行きます。"},
+  {t:63, x:"名前も顔も知らないけれど、あなたの声は、確かにここまで届きましたよ。それでは。", end:true},
+ ]},
+];
+function dayOfYear(d){return Math.floor((d-new Date(d.getFullYear(),0,0))/864e5)}
+const NOW=new Date();
+const DATESTR=`${NOW.getFullYear()}.${String(NOW.getMonth()+1).padStart(2,"0")}.${String(NOW.getDate()).padStart(2,"0")}`;
+/* ═══ プロフィールとマッチング(o17):oppositeな相手=気持ちが逆・場所も仕事も遠い ═══ */
+const PROFILE={pref:"北海道", job:"美容師", age:"20代", mood:"哀"};
+let SCN=SCENARIOS[dayOfYear(NOW)%SCENARIOS.length];   /* 既定(プロフィール確定で選び直す) */
+function matchPartner(){
+  /* 今の気持ちの「逆」の相手を選ぶ(決定論:同じ気持ち×同じ日なら同じ相手) */
+  const wantByMood={ "哀":["楽","喜"], "楽":["哀","凪"], "喜":["哀","凪"], "怒":["凪","楽"], "凪":["喜","楽"] };
+  const wants=wantByMood[PROFILE.mood]||["楽"];
+  const pool=SCENARIOS.filter(s=>wants.includes(s.mood));
+  SCN=(pool.length? pool : SCENARIOS)[dayOfYear(NOW)%(pool.length||SCENARIOS.length)];
+}
+/* 二つの声の色:その通話の時刻と相手から決まる(乱数不使用=決定論。結果として毎回違う)
+   二色の間隔は140°以上=色としてもopposite */
+let PAIR={hueP:268, hueU:205}, callIndex=0;
+function hsl2rgb(h,s,l){
+  const f=n=>{const k=(n+h/30)%12; return Math.round(255*(l-s*Math.min(l,1-l)*Math.max(-1,Math.min(k-3,9-k,1))))};
+  return [f(0),f(8),f(4)];
+}
+function pickPairColors(){
+  callIndex++;
+  const hm=NOW.getHours()*60+new Date().getMinutes();
+  const rng=mulberry32(hashStr(`${DATESTR}-${SCN.id}-pair-${hm}-${callIndex}`));
+  const h1=Math.floor(rng()*360);
+  const h2=(h1+140+Math.floor(rng()*80))%360;
+  PAIR={hueP:h1, hueU:h2, salt:hashStr(`${DATESTR}-${SCN.id}-fam-${hm}-${callIndex}`)};
+  const c1=hsl2rgb(h1,0.42,0.60), c2=hsl2rgb(h2,0.45,0.62);
+  PAIR.c1=c1; PAIR.c2=c2;                          /* 雫の色(o20) */
+  const bg=(el,cv)=>{ el.style.background=`url(${cv.toDataURL()}) center/contain no-repeat`; };
+  bg(document.getElementById("orbP"), glowTex(c1[0],c1[1],c1[2],118));
+  bg(document.getElementById("orbU"), glowTex(c2[0],c2[1],c2[2],112));
+}
+
+/* ═══════════ 画面 ═══════════ */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  /* ホームへ戻る道は必ず(o18)。通話中と、ホームそのものでは出さない */
+  document.getElementById("homeBtn").style.display=(id==="scrIntro"||id==="scrCall")?"none":"block";
+  const bt=document.querySelector(".brandTop"); if(bt) bt.style.display=(id==="scrIntro")?"block":"none";
+}
+/* o28:初回だけ、使い方ガイドを挟む(見たら端末が記憶) */
+const GUIDE=[
+  ["あなたの反対側と、77往復。",'<span class="nb">時間は、ありません。</span><span class="nb">送るたびに、</span><span class="nb">のこりが1つ減ります。</span><br><span class="nb">秒に追われず、</span><span class="nb">言葉の中身だけを見つめて。</span>'],
+  ["イヤホンで、あなただけに。",'<span class="nb">スピーカーにはできません。</span><br><span class="nb">イヤホン・ヘッドホンをつけて、</span><span class="nb">まわりと分け合わないで。</span>'],
+  ["言葉は、つまんで持ち帰れます。",'<span class="nb">気に入ったひと言をタップ。</span><br><span class="nb">通話のあとも、</span><span class="nb">あなたのものです。</span>'],
+  ["終わると、一輪だけ咲きます。",'<span class="nb">二人の色から生まれる</span> <span class="nb">OPPOSITE FLOWER。</span><br><span class="nb">それでは——良い77往復を。</span>'],
+];
+let gIdx=0;
+function renderGuide(){
+  const g=GUIDE[gIdx];
+  document.getElementById("gStep").textContent=(gIdx+1)+" / "+GUIDE.length;
+  document.getElementById("gTitle").textContent=g[0];
+  document.getElementById("gSub").innerHTML=g[1];
+  document.getElementById("gTap").textContent=gIdx<GUIDE.length-1? "タップで、次へ" : "タップで、はじめる";
+}
+function guideNext(){
+  if(gIdx<GUIDE.length-1){
+    gIdx++; renderGuide();
+    const s=document.getElementById("scrGuide");
+    s.classList.remove("active"); void s.offsetWidth; s.classList.add("active");
+  }else{
+    try{ localStorage.setItem("opc_guide_seen","1"); }catch(e){}
+    show("scrProfile");
+  }
+}
+function goPrep(){                          /* 空をひらいたら:初回はガイド→声の設定 */
+  let seen=false; try{ seen=localStorage.getItem("opc_guide_seen")==="1"; }catch(e){}
+  if(seen){ show("scrProfile"); return; }
+  gIdx=0; renderGuide(); show("scrGuide");
+}
+/* プロフィールの選択肢 */
+(function initProfile(){
+  const prefs="北海道 青森県 岩手県 宮城県 秋田県 山形県 福島県 茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県 新潟県 富山県 石川県 福井県 山梨県 長野県 岐阜県 静岡県 愛知県 三重県 滋賀県 京都府 大阪府 兵庫県 奈良県 和歌山県 鳥取県 島根県 岡山県 広島県 山口県 徳島県 香川県 愛媛県 高知県 福岡県 佐賀県 長崎県 熊本県 大分県 宮崎県 鹿児島県 沖縄県".split(" ");
+  const jobs=["美容師","看護師","教師","エンジニア","弁護士","農家","漁師","調理師","運転手","学生","主婦・主夫","会社員","経営者","アーティスト","その他"];
+  const ages=["10代","20代","30代","40代","50代","60代以上"];
+  const moods=["喜","怒","哀","楽","凪(なんでもない)"];
+  const fill=(id,arr,def)=>{ const el=document.getElementById(id);
+    arr.forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v; el.appendChild(o); });
+    el.value=def; };
+  fill("pfPref",prefs,"北海道"); fill("pfJob",jobs,"美容師");
+  fill("pfAge",ages,"20代"); fill("pfMood",moods,"哀");
+})();
+function confirmProfile(){
+  PROFILE.pref=document.getElementById("pfPref").value;
+  PROFILE.job=document.getElementById("pfJob").value;
+  PROFILE.age=document.getElementById("pfAge").value;
+  PROFILE.mood=document.getElementById("pfMood").value.slice(0,1);   /* 凪(…)→凪 */
+  matchPartner();          /* 気持ちが逆の相手を選ぶ */
+  pickPairColors();        /* この通話だけの二色(140°以上離れたopposite色) */
+  show("scrPrep");
+}
+
+/* ═══════════ なぞって、かける(ロゴの「/」=通話の線を、あなたが引く) ═══════════ */
+(function traceSetup(){
+  const svg=document.getElementById("logo");
+  /* 星から星への一筆書き:上の7の左端から、すべての星を通って、下の7の右下へ(o15) */
+  const W=[{x:56,y:28},{x:78,y:21},{x:93,y:25},{x:79,y:39},{x:66,y:53},
+           {x:54,y:67},{x:41,y:81},{x:27,y:95},{x:42,y:99},{x:64,y:92}];
+  const SEGL=[]; let TOTL=0;
+  for(let i=0;i<W.length-1;i++){ const l=Math.hypot(W[i+1].x-W[i].x,W[i+1].y-W[i].y); SEGL.push(l); TOTL+=l; }
+  const CUM=[0]; for(let i=0;i<SEGL.length;i++) CUM.push(CUM[i]+SEGL[i]/TOTL);   /* o36:各星の弧長位置 */
+  let struck=0;
+  function chimeUpTo(pos){ while(struck<W.length && pos>=CUM[struck]-0.002){ chime(struck); struck++; } }
+  const line=document.getElementById("traceLine");
+  const halo=document.getElementById("traceHalo");
+  const hint=document.getElementById("traceHint");
+  let tracing=false, lo=1, hi=0, done=false, hintT=0;
+  const toSVG=ev=>{ const r=svg.getBoundingClientRect(); return {x:(ev.clientX-r.left)/r.width*120, y:(ev.clientY-r.top)/r.height*120}; };
+  const proj=p=>{                                   /* 折れ線への射影(弧長パラメータ) */
+    let best={t:0,d:1e9}, acc=0;
+    for(let i=0;i<W.length-1;i++){
+      const ax=W[i].x, ay=W[i].y, bx=W[i+1].x, by=W[i+1].y;
+      const dx=bx-ax, dy=by-ay, L2=dx*dx+dy*dy;
+      const u=Math.max(0,Math.min(1,((p.x-ax)*dx+(p.y-ay)*dy)/L2));
+      const d=Math.hypot(p.x-(ax+u*dx), p.y-(ay+u*dy));
+      if(d<best.d) best={t:(acc+u*SEGL[i])/TOTL, d};
+      acc+=SEGL[i];
+    }
+    return best;
+  };
+  const pointAt=t=>{                                /* 弧長t(0..1)の位置 */
+    let rest=c01(t)*TOTL;
+    for(let i=0;i<W.length-1;i++){
+      if(rest<=SEGL[i]||i===W.length-2){ const u=Math.min(1,rest/SEGL[i]);
+        return {x:W[i].x+(W[i+1].x-W[i].x)*u, y:W[i].y+(W[i+1].y-W[i].y)*u}; }
+      rest-=SEGL[i];
+    }
+    return W[0];
+  };
+  function setLine(){
+    const l=Math.max(0,hi-lo);
+    const dash=`0 ${(lo*100).toFixed(2)} ${(l*100).toFixed(2)} 100`;
+    line.setAttribute("stroke-dasharray",dash);
+    halo.setAttribute("stroke-dasharray",dash);
+  }
+  function complete(){                               /* 空の解除:世界は目の前だけじゃない */
+    done=true; tracing=false; lo=0; hi=1; setLine();
+    hint.style.display="none";
+    const gg=document.getElementById("goalGlow"), gs=document.getElementById("goalStar");
+    gg.setAttribute("opacity","0.95"); gs.setAttribute("r","2.1"); gs.setAttribute("fill","#fff3e2");   /* 着地の星が点る */
+    document.getElementById("centerDot").setAttribute("r","1.9");
+    document.body.classList.add("unlocked");
+    skyOpen(svg);                                     /* 星が満ち、大きな波紋がひらく */
+    try{ ensureAudio(); chimeUpTo(1);                 /* 残りの和音まで進める */
+      /* o44:着地は最後のサス和音(Esus4)を宙づりのまま長く鳴らす=解決しない浮遊(グライドの余韻)
+         o57:whenAudio=iPhoneでACが眠っていても、起きてから確実に鳴る */
+      whenAudio(()=>{
+        const tt=AC.currentTime, k=Math.pow(2,TRANSPOSE[progT]/12)*GOCT, fin=GLIDE[GLIDE.length-1];
+        fin.forEach((fr,i)=> tone(fr*k, tt+0.02+i*0.12, 3.8, 0.024-i*0.003, {lp:1200+i*80}));
+      });
+      setTimeout(sayOppositeCall, 500);               /* 電子音声「Opposite Call」 */ }catch(e){}
+    setTimeout(()=>goPrep(), 2700);   /* 吸い込まれの余韻を待ってから着地 */
+  }
+  svg.addEventListener("pointerdown",ev=>{
+    if(done) return; const q=proj(toSVG(ev));
+    if(q.d<26){ tracing=true; lo=Math.min(lo,c01(q.t)); hi=Math.max(hi,c01(q.t));
+      try{ensureAudio();}catch(e){}                   /* なぞり始めに音を起こす(ユーザー操作の中で) */
+      nextPattern();                                  /* o41:なぞるたびに別の短調へ */
+      struck=0; chimeUpTo(c01(q.t));                  /* 始点の星が鳴る */
+      try{svg.setPointerCapture(ev.pointerId)}catch(e){} }
+  });
+  const goalGlow=document.getElementById("goalGlow");
+  const goalStar=document.getElementById("goalStar");
+  svg.addEventListener("pointermove",ev=>{
+    if(!tracing||done) return; const q=proj(toSVG(ev));
+    if(q.d<20){ lo=Math.min(lo,c01(q.t)); hi=Math.max(hi,c01(q.t)); setLine();
+      chimeUpTo(hi);                                                /* 星を通過するたび、澄んだ音 */
+      const pu=pointAt(c01(q.t));                                   /* 星は指に付いてくる */
+      hint.setAttribute("transform",`translate(${pu.x} ${pu.y}) scale(1.25)`);
+      const near=c01((hi-lo-0.45)/0.4);                             /* 着地の星が灯りはじめる */
+      goalGlow.setAttribute("opacity",(near*0.55).toFixed(2));
+      goalStar.setAttribute("r",(0.95+near*0.7).toFixed(2));
+      if(hi-lo>0.84) complete(); }
+  });
+  const release=()=>{ if(done||!tracing) return; tracing=false; lo=1; hi=0; setLine(); struck=0;
+    goalGlow.setAttribute("opacity","0"); goalStar.setAttribute("r","0.95"); };   /* 途中でやめたら、また眠る */
+  svg.addEventListener("pointerup",release);
+  svg.addEventListener("pointercancel",release);
+  svg.addEventListener("dblclick",()=>{ if(!done) complete(); });   /* 予備の入口 */
+  (function hintLoop(){                               /* 星は動かない。Zの始点の星の上で、静かに呼吸して待つ */
+    if(done) return;
+    requestAnimationFrame(hintLoop);
+    if(tracing) return;                               /* なぞっている間は指が主役 */
+    hintT+=0.016;
+    const tw=1+0.18*Math.sin(hintT*1.6);
+    hint.setAttribute("transform",
+      `translate(${W[0].x} ${W[0].y}) scale(${tw.toFixed(3)}) rotate(${(hintT*7)%360})`);
+  })();
+})();
+
+/* ═══════════ 星が降る(視覚感性ガイド準拠:温白一色・少なく・動き続ける・明滅は群れごと・
+   衝突の光は粒でなく波紋の輪(線)・quietでは消灯・誕生の間は花に空を譲る) ═══════════ */
+const starCv=document.getElementById("stars");
+let stars=[], crashes=[], starT=0, lastCrash=-9, starPrev=0, lastScan=0;
+const starRng=mulberry32(hashStr(DATESTR+"stars"));
+/* 天の川と星雲(o14):単色グローをalphaノイズごと重ねて雲にする。月白+淡青鼠の二色まで */
+const TEX_MILKY=glowTex(232,242,255,84), TEX_MILKY2=glowTex(168,150,214,72);   /* 青白の雲+すみれの雲 */
+let milky=null, milkyA=0, skyRich=false, meteors=[], nextMeteorAt=14;
+/* o22:天体写真の文法で焼き込む「深い空」。微光星の海(数千)・帯に濃集・暖色の芯・暗黒帯・光条の主星。
+   一度だけ生成する静的な写真=動きの粒とは別物。継ぎ目はラップ描画で根絶 */
+function buildMilky(){
+  milky=document.createElement("canvas"); milky.width=starCv.width; milky.height=starCv.height;
+  const mc=milky.getContext("2d");
+  const rng=mulberry32(hashStr(DATESTR+"deepsky"));
+  const Wd=milky.width, Hd=milky.height;
+  const y0=Hd*0.02, y1=Hd*0.62;
+  /* o29:帯は周期(下がって、また上がる)=左端と右端の高さが一致し、ラップの継ぎ目が構造的に消える */
+  const yBand=t=> y0+(y1-y0)*0.5*(1-Math.cos(2*Math.PI*t));
+  const put=(tex,bx,by,r,al)=>{ mc.globalAlpha=al;
+    [-Wd,0,Wd].forEach(off=>mc.drawImage(tex, bx-r+off, by-r, r*2, r*2)); };
+  const wrapDot=(x,y,r,style,al)=>{ mc.globalAlpha=al; mc.fillStyle=style;
+    mc.beginPath(); mc.arc(x,y,r,0,7); mc.fill();
+    if(x<70){ mc.beginPath(); mc.arc(x+Wd,y,r,0,7); mc.fill(); }
+    if(x>Wd-70){ mc.beginPath(); mc.arc(x-Wd,y,r,0,7); mc.fill(); } };
+  /* 雲:青白・すみれ・淡い桃・薔薇(天の川の芯の暖色)。o23:色味をもう一段 */
+  const TEX_PINK=glowTex(232,178,168,74), TEX_ROSE=glowTex(216,164,184,68);
+  for(let i=0;i<40;i++){ const t=rng();
+    const bx=(((t*Wd+(rng()-0.5)*Wd*0.15)%Wd)+Wd)%Wd;
+    const by=yBand(t)+(rng()-0.5)*Hd*0.09;
+    const r=(70+rng()*150)*(Wd/720+0.4);
+    const tex=[TEX_MILKY,TEX_MILKY,TEX_MILKY2,TEX_PINK,TEX_ROSE,TEX_PINK][Math.floor(rng()*6)];
+    put(tex, bx, by, r, 0.06+rng()*0.10);
+  }
+  /* 暗黒帯(構造の影) */
+  const TEX_DARK=glowTex(10,14,34,110);
+  for(let i=0;i<12;i++){ const t=rng();
+    put(TEX_DARK, (((t*Wd+(rng()-0.5)*Wd*0.06)%Wd)+Wd)%Wd,
+      yBand(t)+(rng()-0.5)*Hd*0.05, 40+rng()*90, 0.25+rng()*0.25);
+  }
+  /* 微光星の海(写真のリアル。静的な焼き込み=群れの明滅なし) */
+  const COLS=["#e8f2ff","#dbe6ff","#ffffff","#ffe9d6","#ffd9c2","#d9c6ff"];
+  const nBase=Math.round(1500*Math.pow(Math.min(1,Wd/720),1.2))+900;
+  for(let i=0;i<nBase;i++)
+    wrapDot(rng()*Wd, rng()*Hd, 0.3+rng()*0.7, COLS[Math.floor(rng()*COLS.length)], 0.08+rng()*0.5);
+  /* 帯に沿ってガウスに濃く */
+  for(let i=0;i<nBase;i++){
+    const t=rng(), g=(rng()+rng()+rng()-1.5)*0.6;
+    const bx=(((t*Wd+(rng()-0.5)*Wd*0.10)%Wd)+Wd)%Wd;
+    const by=yBand(t)+g*Hd*0.10;
+    wrapDot(bx, by, 0.3+rng()*0.6, COLS[Math.floor(rng()*COLS.length)], 0.08+rng()*0.45);
+  }
+  /* まばゆい主星=光のにじみだけ(o23:十字の光条は不採用。怖さと安っぽさのバグ報告) */
+  for(let i=0;i<5;i++){
+    const x=60+rng()*(Wd-120), y=rng()*Hd;
+    put(TEX_MILKY, x, y, 7+rng()*7, 0.45);
+    wrapDot(x, y, 1.3+rng()*0.7, "#ffffff", 0.9);
+  }
+  mc.globalAlpha=1;
+  /* o25/o46:2枚並べた合成レイヤーに一度だけ焼く。CSS寸法も明示=端末側の解釈ズレを断つ */
+  const lc=document.getElementById("milkyCv");
+  lc.width=Wd*2; lc.height=Hd;
+  lc.style.width=(Wd*2)+"px"; lc.style.height=Hd+"px";
+  const lctx=lc.getContext("2d");
+  lctx.drawImage(milky,0,0); lctx.drawImage(milky,Wd,0);
+}
+/* o18:星は天球(方位th・仰角ph)に住む。端のない宇宙 */
+function newStar(){
+  const bright=starRng()<0.12;                     /* ほとんどは淡く、まれに明るい星 */
+  return {th:starRng()*Math.PI*2, ph:Math.asin(2*starRng()-1),
+    dr:(starRng()-0.5)*0.05,                         /* o57:星の渡りを目に見える速さに(空は生きている) */
+    r:bright? 1.2+starRng()*0.6 : 0.4+starRng()*0.9,
+    a:bright? 0.5+starRng()*0.2 : 0.12+starRng()*0.3, born:-9};
+}
+/* 空の解除:星が満ち、波紋が続けてひらき、星空の奥へ飛んでいく(o9/o13) */
+let warpT=-1;                                      /* 飛翔の時計(-1=飛んでいない) */
+function skyOpen(svgEl){
+  skyRich=true;                                    /* 世界がひらく:天の川が濃くなり、流れ星が増える */
+  nextMeteorAt=starT+3;                            /* o57:解除後はホームのまばら予約を引き継がない */
+  const extra=Math.round(stars.length*2.6);        /* 満点の星空へ(それでも単色・淡く) */
+  for(let i=0;i<extra;i++){ const s=newStar(); s.born=starT; stars.push(s); }
+  for(let i=0;i<6;i++){ const s=newStar();         /* 十字にきらめく明るい星も生まれる */
+    s.r=1.3+starRng()*0.7; s.a=0.55+starRng()*0.2; s.born=starT; stars.push(s); }
+  const r=svgEl.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  crashes.push({x:cx, y:cy, t:0, big:true});       /* 波紋はひとつの正円だけ(o20:同心円の群れは作らない=6c) */
+  warpT=0;                                         /* そして、飛ぶ */
+  /* o21:空ごと前へ吸い込まれるズーム(飛翔と同期して、静かに着地) */
+  starCv.style.transition="transform 3.9s cubic-bezier(.22,.61,.21,1)";
+  starCv.style.transform="scale(1.16)";
+  setTimeout(()=>{ starCv.style.transition="transform 5.5s ease"; starCv.style.transform="scale(1)"; }, 4000);
+}
+function starsInit(){
+  starCv.width=innerWidth; starCv.height=innerHeight;
+  const n=Math.max(22, Math.round(54*Math.pow(Math.min(1,innerWidth/720),2))+26);  /* 天球(見えるのは半分)。幅の二乗で遠慮 */
+  stars=[]; for(let i=0;i<n;i++) stars.push(newStar());
+  buildMilky();
+}
+addEventListener("resize",starsInit);
+function starLoop(ts){
+  requestAnimationFrame(starLoop);
+  if(QUIET) return;
+  const ctx=starCv.getContext("2d");
+  ctx.clearRect(0,0,starCv.width,starCv.height);
+  if(document.hidden){ starPrev=ts; return; }                      /* 星空は誕生の画面でも続く */
+  if(starCv.width!==innerWidth||starCv.height!==innerHeight) starsInit();   /* o46:寸法の自己修復=空が欠けたら即直す */
+  const dt=Math.min(0.05, (ts-starPrev)/1000||0.016); starPrev=ts; starT+=dt;
+  const W=starCv.width, H=starCv.height, Wc=W/2, Hc=H*0.45;
+  const yawS=VIEW.yaw;                                 /* o31:背景は自動で流さない=白い幕のカクつき根絶。動くのはドラッグ時だけ */
+  const pit=(VIEW.pitch-0.30)*1.4;
+  const cp=Math.cos(pit), sp=Math.sin(pit);
+  const RAD=Math.max(W,H)*0.85;
+  /* 天の川:天球に巻き付き、yawで流れる。解除とともに濃くなる */
+  milkyA+=((skyRich?1.0:0.34)-milkyA)*Math.min(1,dt*1.1);   /* o22:解除後は写真の空が全開に */
+  const groupA=0.72+0.28*Math.sin(starT*0.5);          /* 明滅は群れごと */
+  /* 飛翔(o13):世界へズームし、光の筋を引く。終われば静かに着く */
+  let boost=0;
+  if(warpT>=0){
+    warpT+=dt; const wp=warpT/4.4;                     /* o21:飛翔を長く・深く=吸い込まれる */
+    if(wp>=1){ warpT=-1; } else boost=Math.sin(Math.PI*Math.min(1,wp));
+  }
+  {                                            /* o46:天の川は常に画面中央の固定背景(端末幅が変わっても途切れない) */
+    const lc=document.getElementById("milkyCv");
+    lc.style.opacity=milkyA.toFixed(3);
+    lc.style.transform=`translate3d(-50%,0,0) scale(${(1+boost*0.16).toFixed(3)})`;   /* 位置は中央固定・飛翔の吸い込み(scale)だけ */
+  }
+  const proj=s=>{                                      /* 球面→画面(端のない宇宙) */
+    const t=s.th+yawS, cph=Math.cos(s.ph);
+    const x=cph*Math.sin(t), y=Math.sin(s.ph), z=cph*Math.cos(t);
+    const y2=y*cp-z*sp, z2=y*sp+z*cp;
+    if(z2<-0.2) return null;
+    const f=1/(z2+1.5);
+    return {sx:Wc+x*f*RAD, sy:Hc-y2*f*RAD, k:f*1.35};
+  };
+  ctx.fillStyle="#e8f2ff";                             /* 粒は青白一色 */
+  const seen=[];
+  stars.forEach(s=>{
+    s.th+=s.dr*dt;                                     /* o35:星は静かに渡る=空は生きている。天の川は固定なので「左から流れる」にはならない */
+    const q=proj(s); if(!q) return;
+    seen.push({s,q});
+    const grow=s.born<0? 1 : c01((starT-s.born)/(boost>0?0.7:2.4));
+    let sx=q.sx, sy=q.sy;
+    if(boost>0.05){                                    /* 流れの筋(粒ではなく線) */
+      const ddx=sx-Wc, ddy=sy-Hc, d=Math.max(24,Math.hypot(ddx,ddy));
+      const m=boost*(0.6+d/Math.max(W,H));
+      const ex=sx+ddx*m, ey=sy+ddy*m;
+      ctx.strokeStyle="#e8f2ff"; ctx.lineWidth=Math.max(0.4,s.r*q.k*0.7);
+      ctx.globalAlpha=s.a*grow*boost*0.62;
+      ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(ex,ey); ctx.stroke();
+      sx=ex; sy=ey;
+    }
+    const rr=Math.max(0.3, s.r*q.k);
+    ctx.globalAlpha=s.a*groupA*grow;
+    ctx.beginPath(); ctx.arc(sx,sy,rr,0,7); ctx.fill();   /* o23:十字は付けない(明るい星もにじみのみ) */
+  });
+  if(skyRich && starT-lastCrash>6 && starT-lastScan>0.6){   /* o33:星の衝突→流れ星は解除後の空だけ(静止したホームで暴発しない) */
+    lastScan=starT;
+    outer: for(let i=0;i<seen.length;i++) for(let j=i+1;j<seen.length;j++){
+      const a=seen[i], b=seen[j];
+      if(Math.hypot(a.q.sx-b.q.sx, a.q.sy-b.q.sy)<7){
+        const mx=(a.q.sx+b.q.sx)/2, my=(a.q.sy+b.q.sy)/2;
+        meteors.push({x:mx, y:my, vx:(starRng()-0.5)*420, vy:90+starRng()*120, t:0, life:0.8+starRng()*0.4});
+        meteors.push({x:mx, y:my, vx:(starRng()-0.5)*-420, vy:70+starRng()*120, t:0, life:0.8+starRng()*0.4});
+        Object.assign(a.s,newStar()); a.s.born=starT;
+        Object.assign(b.s,newStar()); b.s.born=starT;  /* 二度と会わない */
+        lastCrash=starT; break outer;
+      }
+    }
+  }
+  /* 流れ星:尾を引く線。解除後は頻繁に、ホームはごくまれに一筋だけ(o57:静かな夜空にも、命の気配) */
+  if(starT>nextMeteorAt){
+    const home=!skyRich;
+    nextMeteorAt=starT+(home? 16+starRng()*16 : 4+starRng()*6);
+    meteors.push({x:starRng()*starCv.width, y:starCv.height*(0.05+starRng()*0.25),
+      vx:(starRng()<0.5?1:-1)*(home? 150+starRng()*90 : 260+starRng()*180),
+      vy:home? 70+starRng()*50 : 120+starRng()*90,
+      t:0, life:home? 1.5+starRng()*0.6 : 1.0+starRng()*0.5, dim:home?0.55:1});
+  }
+  ctx.fillStyle="#e8f2ff";
+  meteors=meteors.filter(m=>{
+    m.t+=dt; if(m.t>m.life) return false;
+    m.x+=m.vx*dt; m.y+=m.vy*dt;
+    const fade=Math.sin(Math.PI*(m.t/m.life))*(m.dim||1);
+    ctx.strokeStyle="#e8f2ff"; ctx.lineWidth=1;
+    ctx.globalAlpha=0.42*fade;
+    ctx.beginPath(); ctx.moveTo(m.x-m.vx*0.14, m.y-m.vy*0.14); ctx.lineTo(m.x,m.y); ctx.stroke();
+    ctx.globalAlpha=0.75*fade;
+    ctx.beginPath(); ctx.arc(m.x,m.y,1.1,0,7); ctx.fill();
+    return true;
+  });
+  crashes=crashes.filter(c=>{                                      /* 残る輪は「解除の正円」ただ一つ */
+    c.t+=dt; if(c.t>2.0) return false;
+    const p=c.t/2.0;
+    const R=6+p*Math.min(starCv.width,starCv.height)*0.46;
+    ctx.globalAlpha=(1-p)*0.3; ctx.strokeStyle="#e8f2ff"; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.arc(c.x,c.y,R,0,7); ctx.stroke();
+    return true;
+  });
+  ctx.globalAlpha=1;
+}
+starsInit(); requestAnimationFrame(starLoop);
+if(DUOPARAM){ try{ document.querySelector(".brandTop").style.display="none"; }catch(e){} goDuoSetup(); }   /* o60:?duo=1 なら対面モードから */
+
+/* ═══════════ 光だまり(視覚感性ガイド2:単色RGB+alphaのみ空間ハッシュノイズ) ═══════════ */
+function glowTex(r,g,b,peak){
+  const S=128, cv=document.createElement("canvas"); cv.width=cv.height=S;
+  const cx=cv.getContext("2d"), im=cx.createImageData(S,S);
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){
+    const dx=(x-S/2)/(S/2), dy=(y-S/2)/(S/2), d=Math.sqrt(dx*dx+dy*dy);
+    let a=Math.max(0,1-d); a=a*a*(3-2*a);                 /* なめらかな減衰 */
+    let al=Math.round(a*peak);
+    const h=((x*374761393+y*668265263)^((x+y)<<7))>>>0;   /* 乱数不使用の空間ハッシュ */
+    al=Math.max(0,Math.min(255, al+(h%7)-3));             /* ノイズは alpha にだけ ±3 */
+    const i=(y*S+x)*4; im.data[i]=r; im.data[i+1]=g; im.data[i+2]=b; im.data[i+3]=al;
+  }
+  cx.putImageData(im,0,0); return cv;
+}
+/* 二つの声の色(o16:2枚目の世界からピックアップ)=相手の声は菫、あなたの声は青。芯の光だけ温白 */
+const TEX_WARM=glowTex(154,126,216,118), TEX_COOL=glowTex(110,178,232,112);
+(function applyGlows(){
+  const bg=(el,cv)=>{ el.style.background=`url(${cv.toDataURL()}) center/contain no-repeat`; };
+  bg(document.getElementById("orbP"),TEX_WARM);
+  bg(document.getElementById("orbU"),TEX_COOL);
+  bg(document.getElementById("pulse"),TEX_WARM);
+})();
+
+/* ═══════════ 音(Web Audio) ─ 音の作法:水の中で作り、出口に岸辺を置く ═══════════ */
+let AC=null, master=null, wetSend=null;
+/* o45:iPhoneで確実に鳴らす三重の起動。①有効な無音WAV(0.25秒)をloop再生=消音スイッチ対策
+   (オーディオセッションをplaybackへ) ②AudioContext生成直後にresume+無音バッファ一発=完全アンロック
+   ③失敗したら次のタップで自動再挑戦・復帰時にもresume */
+const SILENT_WAV="data:audio/wav;base64,UklGRsQPAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+let silentEl=null;
+function unlockSilent(){
+  try{
+    if(!silentEl){
+      silentEl=document.createElement("audio");
+      silentEl.setAttribute("playsinline",""); silentEl.loop=true; silentEl.volume=0.02;
+      silentEl.src=SILENT_WAV;
+      document.body.appendChild(silentEl);
+    }
+    if(silentEl.paused) silentEl.play().catch(()=>{});
+  }catch(e){}
+}
+function ensureAudio(){
+  unlockSilent();
+  if(AC) { if(AC.state!=="running") AC.resume().catch(()=>{}); return; }
+  AC=new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state!=="running") AC.resume().catch(()=>{});
+  try{ const bb=AC.createBuffer(1,1,22050), ss=AC.createBufferSource();
+    ss.buffer=bb; ss.connect(AC.destination); ss.start(0); }catch(e){}   /* 無音一発=iOSの完全アンロック */
+  /* 出口の岸辺: コンプレッサ(-26/5/20)+持ち上げ×2.6。スマホの通常音量でも「静かだが確かに」 */
+  const comp=AC.createDynamicsCompressor();
+  comp.threshold.value=-26; comp.ratio.value=5; comp.knee.value=20;
+  comp.attack.value=0.02; comp.release.value=0.4;
+  const post=AC.createGain(); post.gain.value=0.82;   /* o26:最終リミッタ=大音量でのビリつき(音割れ)根絶 */
+  comp.connect(post); post.connect(AC.destination);
+  const lift=AC.createGain(); lift.gain.value=2.0;    /* 持ち上げも一段やわらかく */
+  /* o47:出口の保護ハイパス=「ゴォォォ」の轟音の根絶(低周波をスピーカーに出さない) */
+  const hpM=AC.createBiquadFilter(); hpM.type="highpass"; hpM.frequency.value=48; hpM.Q.value=0.5;
+  lift.connect(hpM); hpM.connect(comp);
+  master=lift;
+  /* 残響が主役(乾いた成分は4割以下)。水面下のローパス。
+     o47:ループ内にハイパス150Hz=低域が残響の中で増幅循環しない(轟音の真因を断つ)。帰還も0.42→0.34 */
+  const dl=AC.createDelay(2.0); dl.delayTime.value=0.46;
+  const fb=AC.createGain(); fb.gain.value=0.34;
+  const hpw=AC.createBiquadFilter(); hpw.type="highpass"; hpw.frequency.value=150; hpw.Q.value=0.5;
+  const wfl=AC.createBiquadFilter(); wfl.type="lowpass"; wfl.frequency.value=900;
+  const wet=AC.createGain(); wet.gain.value=0.9;
+  dl.connect(hpw); hpw.connect(wfl); wfl.connect(fb); fb.connect(dl); wfl.connect(wet); wet.connect(master);
+  wetSend=dl;
+}
+/* o57:iPhoneはpointerdown(指を置く)だけでは音が起きないことがある。
+   「起きてから鳴らす」= AC が眠っていたら resume を待ってから鳴らす(なぞりの和音が消える真因の根絶) */
+function whenAudio(fn){
+  try{ ensureAudio(); }catch(e){ return; }
+  if(!AC) return;
+  if(AC.state==="running"){ fn(); }
+  else AC.resume().then(()=>{ try{fn()}catch(e){} }).catch(()=>{});
+}
+/* o45:どのタップでも音を起こす保険(iOSがロックし直しても、次の操作で必ず復帰) */
+["touchstart","touchend","pointerup","click"].forEach(ev=>document.addEventListener(ev,()=>{
+  try{ unlockSilent(); if(AC&&AC.state!=="running") AC.resume().catch(()=>{}); }catch(e){}
+},{passive:true}));
+document.addEventListener("visibilitychange",()=>{
+  try{ if(!document.hidden&&AC&&AC.state!=="running") AC.resume().catch(()=>{}); }catch(e){}
+});
+/* 音は打たない。満ちて、溶ける(立ち上がり0.4秒以上・爪で弾かない) */
+function tone(freq,when,dur,vol,opt){
+  opt=opt||{};
+  const o=AC.createOscillator(), g=AC.createGain(), f=AC.createBiquadFilter();
+  o.type=opt.type||"sine"; o.frequency.value=freq;
+  f.type="lowpass"; f.frequency.value=opt.lp||DIAL.WATER_LP; f.Q.value=0.3;
+  const atk=Math.max(0.4, opt.atk||DIAL.ATTACK);
+  g.gain.setValueAtTime(0,when);
+  g.gain.linearRampToValueAtTime(vol,when+atk);
+  g.gain.setTargetAtTime(0.0001, when+Math.max(atk,dur*0.55), dur*0.35);
+  o.connect(f); f.connect(g);
+  if(opt.bus){ g.connect(opt.bus); }                   /* 旋律バス経由(止めるまで流すため) */
+  else{
+    const dry=AC.createGain(); dry.gain.value=0.35;    /* 乾いた成分4割以下 */
+    g.connect(dry); dry.connect(master); g.connect(wetSend);
+  }
+  o.start(when); o.stop(when+dur+3);
+}
+/* 低音は「聞こえる帯域」で作る(根音+2・3倍音。スマホは200Hz以下が出ない) */
+function bass(freq,when,dur,vol,bus){
+  tone(freq,when,dur,vol,{lp:700,bus});
+  tone(freq*2,when,dur,vol*0.55,{lp:900,bus});
+  tone(freq*3,when,dur,vol*0.32,{lp:1100,bus});
+}
+const midiF=m=>440*Math.pow(2,(m-69)/12);
+const PENTA=[0,2,4,7,9];
+function noteFreq(base,step){ const oct=Math.floor(step/5), s=PENTA[((step%5)+5)%5]; return base*Math.pow(2,(oct*12+s)/12); }
+/* o44:なぞり=コード進行(サス中心の浮遊)。リリイ・シュシュ「グライド」イントロの、宙を滑るような、
+   行き場のない浮遊感。sus2/sus4/add9=3度を欠いた開いた和音は、長調にも短調にも寄り切らず切なく漂う。
+   星を通過するたびに次の和音へ滑り込み、最後はサスのまま宙づり(解決しない)。乱数不使用=憲法 */
+const GLIDE=[
+  [110.00,123.47,164.81,220.00], /* Asus2(9)      ─ 開いた出発(A B E A) */
+  [ 98.00,110.00,146.83,196.00], /* Gsus2         ─ ひとつ下へ滑る(G A D G) */
+  [ 87.31, 98.00,130.81,174.61], /* Fadd9(3度なし) ─ さらに滑る(F G C F) */
+  [ 98.00,130.81,146.83,196.00], /* Gsus4         ─ 昇り返す=グライド(G C D G) */
+  [110.00,130.81,164.81,246.94], /* Am(add9)      ─ 翳りがよぎる(A C E B) */
+  [146.83,164.81,220.00,293.66], /* Dsus2         ─ 広がる哀しみ(D E A D・3度なし) */
+  [ 98.00,130.81,146.83,164.81], /* Csus2/G       ─ 浮遊(G C D E) */
+  [ 82.41,110.00,123.47,164.81]  /* Esus4         ─ 宙づり・解決しない(E A B E) */
+];
+const TRANSPOSE=[0,2,-2];                            /* なぞるたびに少し転調=変化(浮遊感は保つ) */
+const GOCT=2;                                       /* o49:和音を1オクターブ上げて聞こえる帯域へ(低すぎ問題) */
+let progT=(new Date().getMinutes())%TRANSPOSE.length, lastChordIdx=-1;
+function nextPattern(){ progT=(progT+1)%TRANSPOSE.length; lastChordIdx=-1; }
+function playChord(freqs){
+  if(!AC) return;
+  const t0=AC.currentTime+0.01, k=Math.pow(2,TRANSPOSE[progT]/12)*GOCT;
+  const voice=(freq,vol,decay,when,detune)=>{
+    const o=AC.createOscillator(), g=AC.createGain(), fl=AC.createBiquadFilter();
+    o.type="sine"; o.frequency.value=freq; if(detune) o.detune.value=detune;
+    fl.type="lowpass"; fl.frequency.value=2400;
+    g.gain.setValueAtTime(0.0001,when);
+    g.gain.exponentialRampToValueAtTime(vol,when+0.09); /* 滑り込むような立ち上がり(グライド) */
+    g.gain.setTargetAtTime(0.0001,when+0.14,decay);     /* 長い残響=次の和音と溶け合う */
+    o.connect(fl); fl.connect(g);
+    g.connect(master); if(wetSend) g.connect(wetSend);
+    o.start(when); o.stop(when+decay*4+1);
+  };
+  freqs.forEach((fr,i)=>{
+    const f=fr*k, w=t0+i*0.02;                  /* ごく淡いストラム */
+    voice(f, 0.042, 0.85, w, 0);                /* 和音の音(o49:聞こえるよう音量も一段上げ) */
+  });
+  voice(freqs[freqs.length-1]*k*2, 0.008, 0.7, t0+0.05, 0);   /* ほのかな上のきらめき(グライドの光) */
+}
+function chime(step){                                /* 星を通過するたび=次の和音へ進む */
+  const idx=Math.min(step, GLIDE.length-1);
+  if(idx===lastChordIdx) return;                     /* 同じ和音は重ねない */
+  lastChordIdx=idx;
+  whenAudio(()=>playChord(GLIDE[idx]));              /* o57:iPhoneでも「起きてから」確実に鳴る */
+}
+/* ═══ 解除の声「Opposite Call」 ═══
+   o38:CLOHAN(詩帆)の実声を使うためのスロット。ここに録音の data URI か URL を入れると、その声で鳴る。
+   空のあいだは合成音声(可愛い声)にフォールバック。
+   入れ方:「Opposite Call」と一声を録音(m4a/mp3/wav)→ base64 の data URI にして下記に貼る。例:
+   const VOICE_CLIP = "data:audio/mp4;base64,AAAA...";
+   ※守りの章:CLOHANの"中の人"は対外に出さない/声優個人名を売りにしない。声は使ってよいが、正体は伏せる。 */
+const VOICE_CLIP = "";
+let voiceEl=null;
+function speakCute(){                                 /* o39:一番初めの声に戻す=低め・電子的(詩帆が一番良かった声) */
+  const u=new SpeechSynthesisUtterance("Opposite Call");
+  u.lang="en-US"; u.rate=0.82; u.pitch=0.55; u.volume=0.85;
+  const vs=speechSynthesis.getVoices();
+  const v=vs.find(x=>/en[-_]?(US|GB)/i.test(x.lang));   /* 最初に見つかった英語の声(可愛い選別はしない) */
+  if(v) u.voice=v;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+function synthFallback(){
+  try{
+    if(!("speechSynthesis" in window)) return;
+    if(speechSynthesis.getVoices().length===0){
+      speechSynthesis.addEventListener("voiceschanged", speakCute, {once:true});
+      setTimeout(()=>{ try{speakCute()}catch(e){} }, 400);
+    }else speakCute();
+  }catch(e){}
+}
+function sayOppositeCall(){
+  if(VOICE_CLIP){                                     /* CLOHANの実声があれば、それを鳴らす */
+    try{
+      if(!voiceEl){ voiceEl=new Audio(VOICE_CLIP); voiceEl.preload="auto"; voiceEl.setAttribute("playsinline",""); }
+      voiceEl.currentTime=0; voiceEl.volume=0.92;
+      voiceEl.play().catch(()=>synthFallback());
+      return;
+    }catch(e){}
+  }
+  synthFallback();
+}
+/* 相手の声(音):台詞のテキストから決定論的に生まれる、水中のささやき */
+function speakPhrase(text){
+  if(!AC) return; const t0=AC.currentTime+0.05;
+  const n=Math.max(2,Math.min(5,Math.round(text.length/16)));
+  const rng=mulberry32(hashStr(text));
+  for(let i=0;i<n;i++){
+    const step=Math.floor(rng()*10)-2;
+    tone(noteFreq(174.6,step), t0+i*1.1, 2.6, DIAL.PARTNER_VOL, {lp:1000});
+  }
+  const orb=document.getElementById("orbP");
+  orb.classList.add("speaking");
+  setTimeout(()=>orb.classList.remove("speaking"), n*1100+900);
+}
+let ringTimer=null;
+function startRing(){
+  ensureAudio();
+  const ring=()=>{ const t=AC.currentTime+0.05;
+    tone(392,t,2.2,DIAL.RING_VOL,{lp:900}); tone(494,t+1.1,2.6,DIAL.RING_VOL*0.8,{lp:900}); };
+  ring(); ringTimer=setInterval(ring,4200);
+}
+function stopRing(){ if(ringTimer){clearInterval(ringTimer); ringTimer=null;} }
+
+/* ═══════════ マイク(任意・送信も保存もしない) ═══════════ */
+let analyser=null, micStream=null, muted=false;
+const micStats={eSum:0,zSum:0,n:0};
+async function initMic(){
+  try{
+    micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const src=AC.createMediaStreamSource(micStream);
+    analyser=AC.createAnalyser(); analyser.fftSize=2048;   /* o61:低いF0まで測れるよう窓を広げる */
+    src.connect(analyser); /* destinationには繋がない=音は出ない・送らない */
+  }catch(e){ analyser=null; }
+}
+/* ═══ o61:声の科学(F0=基本周波数・スペクトル重心=明るさ)。林大輔博士(声の科学者)と"声で"体験するための実測 ═══
+   生の声は端末の外に出ない:マイクの波形はこの端末の中だけで数値になり、音そのものは破棄される(憲法:記録しない) */
+function estimateF0(buf, sr){                        /* 自己相関でF0(Hz)。無声/無音は0 */
+  const N=buf.length;
+  let e0=0; for(let i=0;i<N;i++) e0+=buf[i]*buf[i];
+  if(Math.sqrt(e0/N)<0.012) return 0;               /* 無音ゲート */
+  const minLag=Math.max(2,Math.floor(sr/400)), maxLag=Math.min(N-1,Math.floor(sr/70));  /* 声の70〜400Hz */
+  let bestLag=-1, best=0;
+  for(let lag=minLag; lag<=maxLag; lag++){
+    let c=0; for(let i=0;i<N-lag;i++) c+=buf[i]*buf[i+lag];
+    if(c>best){ best=c; bestLag=lag; }
+  }
+  if(bestLag<=0 || best/e0 < 0.30) return 0;         /* 周期性が弱い=無声 */
+  return sr/bestLag;
+}
+function spectralCentroidHz(mag, sr, fftSize){        /* スペクトル重心(Hz)=声の明るさ(声標本の"光") */
+  let num=0, den=0;
+  for(let i=1;i<mag.length;i++){ const f=i*sr/fftSize; num+=f*mag[i]; den+=mag[i]; }
+  return den>0? num/den : 0;
+}
+function median(a){ if(!a.length) return 0; const b=a.slice().sort((x,y)=>x-y); const m=b.length>>1; return b.length%2? b[m] : (b[m-1]+b[m])/2; }
+function micLoop(){
+  if(!inCall) return;
+  if(analyser && !muted){
+    const buf=new Float32Array(analyser.fftSize);
+    analyser.getFloatTimeDomainData(buf);
+    let s=0,z=0;
+    for(let i=0;i<buf.length;i++){ s+=buf[i]*buf[i]; if(i>0&&(buf[i]>=0)!==(buf[i-1]>=0))z++; }
+    const rms=Math.sqrt(s/buf.length), zcr=z/buf.length;
+    if(rms>0.015){ micStats.eSum+=rms; micStats.zSum+=zcr; micStats.n++; }
+    const sc=1+c01(rms*6)*0.22;
+    document.getElementById("orbU").style.transform=`scale(${sc.toFixed(3)})`;
+    /* o61:声で交代する対面モード=話している人の声を、その番の器に実測して溜める */
+    if(duoVoice && duoRecording && rms>0.015){
+      const cap=duoCap[duoRecSide];
+      const f0=estimateF0(buf, AC.sampleRate);
+      if(f0>0) cap.f0.push(f0);
+      const freq=new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(freq);
+      cap.centSum+=spectralCentroidHz(freq, AC.sampleRate, analyser.fftSize);
+      cap.eSum+=rms; cap.zSum+=zcr; cap.n++;
+      duoLiveF0=f0>0? f0 : duoLiveF0;
+    }
+  }
+  requestAnimationFrame(micLoop);
+}
+function toggleMute(){
+  muted=!muted;
+  if(micStream) micStream.getAudioTracks().forEach(tr=>tr.enabled=!muted);
+  document.getElementById("btnMute").textContent=muted?"ミュート解除":"ミュート";
+}
+
+/* ═══════════ 音声認識(あなたの言葉も字幕に・対応ブラウザのみ) ═══════════ */
+let recog=null;
+function initRecog(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR) return;
+  try{
+    recog=new SR(); recog.lang="ja-JP"; recog.continuous=true; recog.interimResults=false;
+    recog.onresult=(ev)=>{
+      const r=ev.results[ev.results.length-1];
+      if(r.isFinal){ const txt=r[0].transcript.trim(); if(txt){
+        if(duoVoice){                                 /* o61:声で交代=話している人の言葉を、その番の側に(拾い用)。花はF0など実測から */
+          if(duoRecording){ const side=duoRecSide; duoWords[side].push(txt);
+            addCaption(txt, side===0?"user":"partner");      /* partner側はaddCaptionが拾い用プールに積む */
+            if(side===0){ const mk=maskPII(txt); if(mk.safe&&mk.safe.length>1) exchangeWords.push(mk.safe); } }
+        }else{ myWords.push(txt); typeStamps.push((performance.now()-callT0)/1000); userTurn(txt); }   /* o58:声のひと言も往復に */
+      } }
+    };
+    recog.onerror=()=>{}; recog.onend=()=>{ if(inCall&&recog){ try{recog.start()}catch(e){} } };
+    recog.start();
+  }catch(e){ recog=null; }
+}
+function stopRecog(){ if(recog){ const r=recog; recog=null; try{r.stop()}catch(e){} } }
+
+/* ═══════════ 個人につながる言葉のモザイク(安全な場所であるために) ═══════════ */
+const PII_SRC=[
+  "[0-9０-９]{2,4}[\\-ー−ｰ\\s]?[0-9０-９]{2,4}[\\-ー−ｰ\\s]?[0-9０-９]{3,4}",   /* 電話番号らしき並び */
+  "[0-9０-９]{6,}",                                                             /* 長い数字列 */
+  "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",                            /* メール */
+  "@[A-Za-z0-9_.]{3,}",                                                         /* ハンドル */
+  "(?:LINE|ライン|らいん|インスタ|Instagram|instagram|insta|ツイッター|Twitter|twitter|TikTok|ティックトック|エックス)\\s*(?:の)?\\s*(?:ID|id|Id|アイディー|アカウント)\\s*(?:は)?\\s*[:：]?\\s*[A-Za-z0-9._-]{3,}",
+];
+function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function maskPII(raw){
+  let found=false, safe=raw;
+  PII_SRC.forEach(src=>{
+    const re=new RegExp(src,"g");
+    if(re.test(safe)){ found=true; safe=safe.replace(new RegExp(src,"g"),"●●●"); }
+  });
+  let html=esc(raw);
+  PII_SRC.forEach(src=>{ html=html.replace(new RegExp(src,"g"), m=>'<span class="mask">'+m+'</span>'); });
+  return {safe, html, found};
+}
+let maskNoticeShown=false;
+
+/* ═══════════ 字幕の川と「拾い言葉」 ═══════════ */
+const picked=[];             /* 手元に残す=拾った言葉(通話の後で選ぶ。最大7) */
+let exchangeWords=[];        /* o48:通話で交わした相手の言葉すべて(この中から後で拾う) */
+/* o50:相手の声は「ぽこぽこ」した心地よい音に変換する(どうぶつの森/トモダチコレクション式)。
+   言葉の意味は"文字"で読み、"声"は言語ではなく癒しの音の連なりに。TTSの下手さも「言葉が入らない」苛立ちも消え、
+   憲法「声色は変換されて届く」に忠実。生の声は旅をしない。決定論(同じ文=同じ声・乱数不使用)。
+   温かいローパス=ラジオのようにこもった柔らかさ。水の残響で憩いの音に。 */
+const BABBLE_SCALE=[0,2,4,7,9,12,14,16,19,21];         /* 長調ペンタトニック(2オクターブ)=どの隣り合わせも柔らかく調和 */
+function voiceBabble(text){
+  if(!AC) return;
+  const clean=(text||"").replace(/[「」──、。！？!?\s]/g,"");
+  if(!clean) return;
+  const n=Math.max(3, Math.min(22, clean.length));
+  const rng=mulberry32(hashStr(text));
+  const t0=AC.currentTime+0.02, step=0.13;            /* かろやかな ぴっぽこ */
+  const question=/[?？]$/.test((text||"").trim());
+  const base=392;                                     /* G4=明るい足場 */
+  /* o57:"ぴっぽこぴっぽこ"へ ─ 怖さの根絶。
+     怖さの正体=低めの音程が「落ちる」こと(洞窟の水滴)。そこで二つの音を交互に:
+     「ぴっ」=1オクターブ上・まっすぐ・ごく短い(小鳥のひとこえ)
+     「ぽこ」=まるい音・落差を小さく浅く(1.12倍から3/100秒)=可愛い相槌
+     残響への一滴も減らし(0.22)、明るく・軽く・乾きすぎない */
+  const blip=(f,when,vol,pi)=>{
+    const o=AC.createOscillator(), g=AC.createGain(), fl=AC.createBiquadFilter();
+    o.type="sine";
+    if(pi){                                                   /* ぴっ:高く、まっすぐ、短く */
+      o.frequency.setValueAtTime(f*2,when);
+      fl.type="lowpass"; fl.frequency.value=2600; fl.Q.value=0.4;
+      g.gain.setValueAtTime(0.0001,when);
+      g.gain.exponentialRampToValueAtTime(vol,when+0.006);
+      g.gain.exponentialRampToValueAtTime(0.0001,when+0.07);  /* ちょん、と置くだけ */
+    }else{                                                    /* ぽこ:まるく、浅く転がる */
+      o.frequency.setValueAtTime(f*1.12,when);                /* 落差を小さく=怖くない */
+      o.frequency.exponentialRampToValueAtTime(f,when+0.03);
+      fl.type="lowpass"; fl.frequency.value=1600; fl.Q.value=0.5;
+      g.gain.setValueAtTime(0.0001,when);
+      g.gain.exponentialRampToValueAtTime(vol,when+0.010);
+      g.gain.exponentialRampToValueAtTime(0.0001,when+0.12);
+    }
+    o.connect(fl); fl.connect(g);
+    g.connect(master);
+    if(wetSend){ const w=AC.createGain(); w.gain.value=0.22;  /* 残響はほんのり */
+      g.connect(w); w.connect(wetSend); }
+    o.start(when); o.stop(when+0.16);
+  };
+  let idx=2;                                          /* 音は小さく歩く(不協和音ゼロのペンタトニック) */
+  for(let i=0;i<n;i++){
+    const phase=i/Math.max(1,n-1);
+    const arc=Math.round(2 + Math.sin(phase*Math.PI)*1.6 - phase*1.6);
+    const wob=(rng()<0.3)? (rng()<0.5?1:-1) : 0;
+    idx=Math.max(0, Math.min(BABBLE_SCALE.length-1, arc+wob + (question&&phase>0.7?1:0)));
+    const f=base*Math.pow(2, BABBLE_SCALE[idx]/12);
+    blip(f, t0+i*step, (i%2===0)?0.015:0.021, i%2===0);   /* ぴっ・ぽこ・ぴっ・ぽこ */
+  }
+}
+function orbPulse(text){
+  const orb=document.getElementById("orbP"); if(!orb) return;
+  orb.classList.add("speaking");
+  setTimeout(()=>orb.classList.remove("speaking"), Math.min(6000, 500+text.length*90));
+}
+function addCaption(text, kind, listen){
+  const st=document.getElementById("capStream");
+  const div=document.createElement("div");
+  if(kind==="sys"){
+    div.className="cap sys"; div.textContent=text;
+  }else{
+    /* o48:通話中は拾わない=ただ居るだけ。相手の言葉は「交換の言葉」として後の"拾い"に取っておく */
+    const mk=maskPII(text);
+    div.className="cap"+(kind==="user"?" user":"")+(listen?" listenline":"");
+    div.innerHTML=mk.html;
+    if(kind==="partner") exchangeWords.push(mk.safe);   /* 相手の真実の言葉を、あとで拾えるように */
+    if(mk.found && !maskNoticeShown){
+      maskNoticeShown=true;
+      setTimeout(()=>{ if(inCall) addCaption("──個人につながりそうな言葉に、モザイクをかけました。ここは、安全な場所です。","sys"); },700);
+    }
+  }
+  st.appendChild(div);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>div.classList.add("show")));
+  const caps=st.querySelectorAll(".cap");
+  caps.forEach((c,i)=>{
+    const fromEnd=caps.length-1-i;
+    c.classList.toggle("old", fromEnd>=1&&fromEnd<3);
+    if(fromEnd>=3&&!c.classList.contains("gone")){ c.classList.add("gone"); setTimeout(()=>c.remove(),1100); }
+  });
+}
+
+/* ═══════════ 通話の進行 ═══════════ */
+let inCall=false, timeouts=[], timerIv=null, callT0=0, farewellShown=false, exchangesLeft=77;
+let talkMode="voice", myWords=[], typeStamps=[];   /* o49:声で/文字で。文字は言葉標本の素になる */
+async function startCalling(mode){
+  duoMode=false; duoVoice=false;                               /* o60/o61:通常フローは対面モードを解除 */
+  talkMode=(mode===true)?"voice":(mode===false)?"none":mode;   /* 旧true/falseにも後方互換 */
+  myWords=[]; typeStamps=[];
+  ensureAudio(); show("scrCalling"); startRing();
+  document.getElementById("typeBar").style.display=(talkMode==="text")?"flex":"none";
+  if(talkMode==="voice") await initMic();
+  setTimeout(connectCall, DIAL.CONNECT_MS);
+}
+/* o49:文字で話す=自分の言葉を打つ。声が出ない人も"通話"できる。打つ言葉が言葉標本の素になる */
+function sendTyped(){
+  if(duoMode) return duoSend();          /* o60:対面モードは交代制 */
+  const inp=document.getElementById("typeInput"); const t=(inp.value||"").trim();
+  if(!t||!inCall) return;
+  inp.value="";
+  myWords.push(t); typeStamps.push((performance.now()-callT0)/1000);
+  userTurn(t);                          /* o58:あなたのひと言→相手が応える(往復) */
+}
+/* ═══════════ o60/o61:ふたりで(対面)モード ─ 一台の端末を交代しながら、両者の"声"or言葉から一輪の花 ═══════════ */
+let duoMode=false, duoNames=["あなた","お相手"], duoTurn=0, duoWords=[[],[]], duoStamps=[[],[]];
+let duoVoice=false, duoRecording=false, duoRecSide=0, duoLiveF0=0, duoLiveIv=null;
+function dcap(){ return {f0:[],centSum:0,eSum:0,zSum:0,n:0}; }
+let duoCap=[dcap(),dcap()];
+function duoVoiceStat(side){                          /* その人の声の実測(F0の中央値・明るさ・張り・抑揚) */
+  const c=duoCap[side];
+  return { f0:Math.round(median(c.f0)), cent:c.n?Math.round(c.centSum/c.n):0,
+           e:c.n?c.eSum/c.n:0.10, z:c.n?c.zSum/c.n:0.10, n:c.n };
+}
+function goDuoSetup(){ show("scrDuo"); }
+function startDuo(){
+  const a=(document.getElementById("duoA").value||"").trim()||"あなた";
+  const b=(document.getElementById("duoB").value||"").trim()||"お相手";
+  duoNames=[a,b]; duoMode=true; duoTurn=0; duoWords=[[],[]]; duoStamps=[[],[]];
+  myWords=[]; typeStamps=[]; talkMode="text";
+  matchPartner(); pickPairColors();      /* 二色と種(花の色・系統のsalt)を用意 */
+  ensureAudio(); show("scrCalling"); startRing();
+  document.getElementById("typeBar").style.display="flex";
+  setTimeout(startDuoCall, Math.round(DIAL.CONNECT_MS*0.55));
+}
+function updateDuoTurn(){
+  const el=document.getElementById("pickHint"); if(!el) return;
+  const how=duoVoice? "マイクに話して、とめると交代します" : "言葉を打って、交代します";
+  el.innerHTML=`いまは <b style="color:var(--gold)">${esc(duoNames[duoTurn])}</b> さんの番<br><span class="note">${how}</span>`;
+}
+function startDuoCall(){
+  stopRing(); show("scrCall"); inCall=true; callT0=performance.now();
+  requestAnimationFrame(dropLoop);
+  document.getElementById("callMeta").innerHTML='<span class="nb">ふたりの言葉から、</span><span class="nb">一輪の花が生まれます</span>';
+  document.getElementById("earRule").style.display="none";      /* 対面=耳当ての注意は不要 */
+  document.getElementById("btnMute").style.display="none";       /* 対面=ミュートは不要 */
+  document.getElementById("duoRec").style.display="none";        /* 文字の対面では録音ボタンは出さない */
+  picked.length=0; exchangeWords=[];
+  exchangesLeft=DIAL.MAX_EXCHANGES; farewellShown=false;
+  ["capStream","orbs","callMeta","pickHint"].forEach(id=>{
+    const el=document.getElementById(id); if(el){ el.style.transition=""; el.style.opacity=""; el.style.filter=""; }
+  });
+  showExchanges(); updateDuoTurn();
+  const inp=document.getElementById("typeInput"); if(inp){ inp.placeholder=`${duoNames[0]} さんから、どうぞ…`; try{inp.focus()}catch(e){} }
+}
+function duoSend(){
+  const inp=document.getElementById("typeInput"); const t=(inp.value||"").trim();
+  if(!t||!inCall||farewellShown) return;
+  inp.value="";
+  const side=duoTurn;
+  duoWords[side].push(t); duoStamps[side].push((performance.now()-callT0)/1000);
+  addCaption(t, side===0?"user":"partner");      /* 左右で話者を分ける。partner側はaddCaptionが語彙プールに積む */
+  if(side===0){ const mk=maskPII(t); if(mk.safe && mk.safe.length>1) exchangeWords.push(mk.safe); }  /* A側も拾える語に */
+  voiceBabble(t);                                /* ぴっぽこの相槌(どちらの番でも) */
+  stepExchange();
+  duoTurn=1-duoTurn; updateDuoTurn();
+  if(inp){ inp.placeholder=`${duoNames[duoTurn]} さんの番…`; try{inp.focus()}catch(e){} }
+}
+/* ═══ o61:ふたりで・声で(林博士=声の科学者と、その場で。交代でマイクに話し、実測のF0から花を) ═══ */
+async function startDuoVoice(){
+  const a=(document.getElementById("duoA").value||"").trim()||"あなた";
+  const b=(document.getElementById("duoB").value||"").trim()||"お相手";
+  duoNames=[a,b]; duoMode=true; duoVoice=true; duoTurn=0;
+  duoWords=[[],[]]; duoStamps=[[],[]]; duoCap=[dcap(),dcap()]; myWords=[]; typeStamps=[]; talkMode="voice";
+  matchPartner(); pickPairColors();
+  ensureAudio(); show("scrCalling"); startRing();
+  await initMic();
+  if(!analyser){                                  /* マイク不可→文字モードへ静かに切り替え */
+    duoVoice=false; stopRing(); show("scrDuo");
+    const n=document.getElementById("duoMicNote");
+    if(n){ n.textContent="マイクが使えませんでした。文字で交代する形でも体験できます。"; n.style.color="var(--gold)"; }
+    return;
+  }
+  setTimeout(startDuoVoiceCall, Math.round(DIAL.CONNECT_MS*0.55));
+}
+function startDuoVoiceCall(){
+  stopRing(); show("scrCall"); inCall=true; callT0=performance.now();
+  requestAnimationFrame(dropLoop); micLoop(); initRecog();
+  document.getElementById("callMeta").innerHTML='<span class="nb">ふたりの"声"から、</span><span class="nb">一輪の花が生まれます</span>';
+  document.getElementById("earRule").style.display="none";
+  document.getElementById("btnMute").style.display="none";
+  document.getElementById("typeBar").style.display="none";
+  document.getElementById("duoRec").style.display="flex";
+  picked.length=0; exchangeWords=[];
+  exchangesLeft=DIAL.MAX_EXCHANGES; farewellShown=false;
+  ["capStream","orbs","callMeta","pickHint"].forEach(id=>{ const el=document.getElementById(id); if(el){ el.style.transition=""; el.style.opacity=""; el.style.filter=""; } });
+  showExchanges(); updateDuoTurn(); duoRecording=false; setDuoRecBtn(false);
+}
+function setDuoRecBtn(rec){
+  const btn=document.getElementById("duoRecBtn"); if(!btn) return;
+  duoRecording=rec; btn.classList.toggle("recording",rec);
+  btn.textContent= rec? "とめて、交代 ▸" : `● ${duoNames[duoTurn]} さんが話す`;
+}
+function duoRecToggle(){
+  if(!inCall||farewellShown) return;
+  if(!duoRecording){                              /* 話しはじめる */
+    duoRecSide=duoTurn; duoLiveF0=0; setDuoRecBtn(true);
+    if(duoLiveIv) clearInterval(duoLiveIv);
+    duoLiveIv=setInterval(()=>{
+      if(!duoRecording) return;
+      const f=duoLiveF0? Math.round(duoLiveF0):0;
+      document.getElementById("callMeta").innerHTML= f?
+        `<span class="nb">🎙 ${esc(duoNames[duoRecSide])} ─ いま 約 ${f} Hz</span>`
+        : `<span class="nb">🎙 ${esc(duoNames[duoRecSide])} ─ 聞いています…</span>`;
+    },150);
+  }else{                                          /* とめて、交代 */
+    if(duoLiveIv){ clearInterval(duoLiveIv); duoLiveIv=null; }
+    setDuoRecBtn(false);
+    const st=duoVoiceStat(duoRecSide);
+    addCaption(st.f0? `${duoNames[duoRecSide]} の声 ─ 約 ${st.f0} Hz ・ 明るさ 約 ${st.cent} Hz` : `${duoNames[duoRecSide]} ─ 記録しました`, "sys");
+    voiceBabble("ぽろん");
+    stepExchange();
+    duoTurn=1-duoTurn; updateDuoTurn(); setDuoRecBtn(false);
+    document.getElementById("callMeta").innerHTML='<span class="nb">交代して、</span><span class="nb">話してください</span>';
+  }
+}
+/* ═══ 雫と根(o20):二人の色の光から雫が交互に落ち、着水の正円波紋、根が下へ伸びる。
+   77秒後、その根から花が咲く(誕生の茎につながる物語) ═══ */
+let sandRAF=0;
+function dropLoop(){
+  if(!inCall) return;
+  sandRAF=requestAnimationFrame(dropLoop);
+  const cv=document.getElementById("dropCv");
+  const scr=document.getElementById("scrCall");
+  const cw=scr.clientWidth, ch=scr.clientHeight;
+  if(cv.width!==cw*2){ cv.width=cw*2; cv.height=ch*2; }
+  const ctx=cv.getContext("2d");
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const t=((performance.now()-callT0)/1000)/DIAL.TIME_SCALE;   /* 表示秒での経過 */
+  const orbs=document.getElementById("orbs").getBoundingClientRect();
+  const srcY=(orbs.top+orbs.height*0.7)*2;
+  const sL=(orbs.left+orbs.width*0.3)*2, sR=(orbs.left+orbs.width*0.7)*2;
+  const N=14, per=5.4, fall=2.4;
+  const c1=PAIR.c1||[154,126,216], c2=PAIR.c2||[110,178,232];
+  for(let i=0;i<N;i++){
+    const t0=2+i*per; if(t<t0) break;
+    const side=i%2, col=side? c2:c1, sx=side? sR:sL;
+    const landY=(ch*2)*(0.46+((i*37)%23)/100);                 /* 空間の途中に、ポトン(o26:根は作らない) */
+    const p=(t-t0)/fall;
+    ctx.strokeStyle=ctx.fillStyle=`rgb(${col[0]},${col[1]},${col[2]})`;
+    if(p<1){                                                   /* 落ちていく雫 */
+      const e=p*p;
+      const x=sx+(side?-1:1)*Math.sin(p*2.6)*8;
+      const y=srcY+(landY-srcY)*e;
+      ctx.globalAlpha=0.3; ctx.lineWidth=1.4;                  /* 雫の尾 */
+      ctx.beginPath(); ctx.moveTo(x, y-14-16*p); ctx.lineTo(x,y); ctx.stroke();
+      ctx.globalAlpha=0.85;
+      ctx.beginPath(); ctx.arc(x,y,4,0,7); ctx.fill();
+    }else if(p<1.7){                                           /* ポトン=小さな正円の波紋だけ残して、消える */
+      const q=(p-1)/0.7;
+      ctx.globalAlpha=(1-q)*0.5; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.arc(sx, landY, 3+q*20, 0, 7); ctx.stroke();
+    }
+  }
+  ctx.globalAlpha=1;
+}
+function connectCall(){
+  stopRing(); show("scrCall"); inCall=true; callT0=performance.now();
+  requestAnimationFrame(dropLoop);
+  document.getElementById("callMeta").innerHTML='<span class="nb">言葉は文字で、</span><span class="nb">声は、変換されて届きます</span>';
+  document.getElementById("earRule").style.display="";   /* o60:対面モードで隠した注意書きを戻す */
+  document.getElementById("btnMute").style.display="";
+  document.getElementById("duoRec").style.display="none";
+  document.getElementById("pickHint").innerHTML='いまは、ただ　言葉と。<br><span class="note">拾うのは、通話のあとで</span>';   /* o60:対面の交代表示を戻す */
+  picked.length=0; exchangeWords=[];       /* o48:この通話の言葉をまっさらに */
+  micLoop(); if(analyser) initRecog();
+  /* o53:時間の概念を消す。通話は「77往復」=どちらかが送るたびに1減る。言葉の中身だけを見つめる */
+  exchangesLeft=DIAL.MAX_EXCHANGES; farewellShown=false;
+  ["capStream","orbs","callMeta","earRule","pickHint"].forEach(id=>{   /* 前回の溶暗が残っていたら戻す */
+    const el=document.getElementById(id); if(el){ el.style.transition=""; el.style.opacity=""; el.style.filter=""; }
+  });
+  showExchanges();
+  /* o58:時間ではなく「往復」で進む。相手の言葉をタイマーで全部流さない=秒で切れない。
+     ①通話が始まると、相手がまず電話に出る(ひと言) ②あなたが送るたびに、相手が少し間をおいて応える
+     ③あなたが黙っていても会話が死なないよう、長い沈黙のあとだけ相手がそっと続ける(打ち切りではない) */
+  partnerIdx=0; partnerPending=false; lastUserAt=performance.now();
+  partnerSpeakNext();                     /* 相手が、電話に出る */
+  armIdleNudge();
+}
+/* ═══ o58:往復駆動の会話(相手はあなたに応えて、次のひと言を返す) ═══ */
+let partnerIdx=0, partnerPending=false, lastUserAt=0, idleIv=null;
+function partnerSpeakNext(){
+  partnerPending=false;
+  if(!inCall||farewellShown) return;
+  if(partnerIdx>=SCN.lines.length){ beginFarewell(); return; }   /* 相手の物語が尽きたら、別れへ */
+  const line=SCN.lines[partnerIdx++];
+  addCaption(line.x,"partner",line.listen);
+  voiceBabble(line.x);                    /* o57:声はぴっぽこ音に変換(言葉は文字で読む)=癒しの音 */
+  orbPulse(line.x);
+  stepExchange();                         /* 相手のひと言=一往復。のこりが減る */
+  if(line.end){ beginFarewell(); }        /* 別れの言葉で、画面が静かに溶けて終わる */
+}
+function userTurn(text){                   /* あなたのひと言。相手は、それに応える */
+  if(!inCall||farewellShown) return;
+  addCaption(text,"user");
+  lastUserAt=performance.now();
+  stepExchange();                         /* あなたのひと言=一往復 */
+  if(farewellShown||partnerPending) return;
+  partnerPending=true;
+  const wait=(DIAL.REPLY_MIN_MS + Math.min(2400, text.length*DIAL.REPLY_PER_CHAR))*DIAL.TIME_SCALE;
+  timeouts.push(setTimeout(partnerSpeakNext, wait));   /* 少し間をおいて、応える */
+}
+function armIdleNudge(){
+  if(idleIv) clearInterval(idleIv);
+  idleIv=setInterval(()=>{                /* 長い沈黙のあとだけ、相手がそっと続ける(時間で切るのではない) */
+    if(!inCall||farewellShown||partnerPending) return;
+    if(performance.now()-lastUserAt > DIAL.IDLE_NUDGE_MS*DIAL.TIME_SCALE){
+      lastUserAt=performance.now(); partnerSpeakNext();
+    }
+  }, 900);
+}
+/* ═══ o53:往復カウンタ(時間ではなく、交わした言葉の数で通話が満ちる) ═══ */
+function showExchanges(){
+  const t=document.getElementById("timer"); if(t) t.textContent=String(Math.max(0,exchangesLeft));
+}
+function stepExchange(){
+  if(!inCall||farewellShown) return;
+  exchangesLeft=Math.max(0,exchangesLeft-1);
+  showExchanges();
+  const t=document.getElementById("timer");
+  if(t){ t.style.transform="scale(1.14)"; setTimeout(()=>{ if(t) t.style.transform=""; },170); }  /* 送るたび、そっと脈打つ */
+  if(exchangesLeft<=0){ beginFarewell(); }   /* 77往復を使い切ったら、静かに終わる */
+}
+function beginFarewell(){
+  if(farewellShown) return;
+  farewellShown=true;
+  const grace=Math.max(0.6, DIAL.FAREWELL_GRACE*DIAL.TIME_SCALE);   /* 別れの言葉から、終話までの間 */
+  const meltEls=["capStream","orbs","callMeta","earRule","pickHint"].map(id=>document.getElementById(id));
+  meltEls.forEach(el=>{ if(!el) return;
+    el.style.transition=`opacity ${grace}s ease, filter ${grace}s ease`;
+    el.style.opacity="0.12"; el.style.filter="blur(1.6px)"; });
+  timeouts.push(setTimeout(()=>{ if(inCall) endCall("farewell"); }, grace*1000));
+}
+function cleanupCall(){
+  inCall=false; timeouts.forEach(clearTimeout); timeouts=[];
+  if(sandRAF){ cancelAnimationFrame(sandRAF); sandRAF=0; }
+  if(timerIv){clearInterval(timerIv); timerIv=null;}
+  if(idleIv){clearInterval(idleIv); idleIv=null;}   /* o58:沈黙の見守りも止める */
+  if(duoLiveIv){clearInterval(duoLiveIv); duoLiveIv=null;} duoRecording=false;   /* o61:録音の見守りも止める */
+  stopRecog();
+  if(micStream){ micStream.getTracks().forEach(t=>t.stop()); micStream=null; }
+}
+function endCall(){ if(!document.getElementById("scrCall").classList.contains("active"))return; cleanupCall(); showKeep(); }
+function blockCall(){ cleanupCall(); stopRing(); show("scrQuiet"); }
+
+/* ═══════════ 拾い(o48):線が切れた後、時間制限なしで、相手の言葉を七つまで手元に ═══════════ */
+function showKeep(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  show("scrKeep");
+  /* 声の解説=声標本の科学(将来:micStatsから生成)。o57:文節ごとに折り返す */
+  document.getElementById("keepVoice").innerHTML=duoMode?
+    `<span class="nb">${esc(duoNames[0])} と ${esc(duoNames[1])} の、</span><span class="nb">交わした${duoVoice?"声":"言葉"}です。</span>`
+    : (SCN.voice? `<span class="nb">${SCN.area}の${SCN.who}の声は、</span>`+nbWrap(SCN.voice) : "");
+  picked.length=0; document.getElementById("keepCount").textContent="0";
+  const box=document.getElementById("keepWords"); box.innerHTML="";
+  const words=exchangeWords.filter(w=>w && w.length>1);
+  if(!words.length){ box.innerHTML='<p class="sub">今日は、言葉は流れていきました。</p>'; }
+  words.forEach((w,i)=>{
+    const d=document.createElement("div"); d.className="kw"; d.textContent=`「${w}」`;
+    d.addEventListener("click",()=>{
+      if(d.classList.contains("kept")){                  /* もう一度触れると、そっと戻す */
+        d.classList.remove("kept"); const idx=picked.indexOf(w); if(idx>=0) picked.splice(idx,1);
+      }else{
+        if(picked.length>=DIAL.MAX_PICKS) return;        /* 七つまで */
+        picked.push(w); d.classList.add("kept");
+      }
+      document.getElementById("keepCount").textContent=String(picked.length);
+    });
+    box.appendChild(d);
+    setTimeout(()=>d.classList.add("show"), 300+i*200);  /* 星が降りるように、順に現れる */
+  });
+}
+function goBloom(){ beginBirth(); }   /* 拾った言葉だけで、花が咲く */
+
+/* ═══════════ 誕生:二つの声から一輪の花(構図文法v1適用) ═══════════ */
+/* 花形の系統(構図文法2-4b。実在参照=骨格の学び。複製と命名はしない) */
+const FAMS={
+  hira:     {name:"平咲き",   layers:1, pl:1.00, pw:0.50, curve:0.34, tip:0,    core:0.11},
+  kasane:   {name:"重ね咲き", layers:3, pl:0.94, pw:0.42, curve:0.30, tip:0,    core:0.08},
+  shindachi:{name:"芯立ち",   layers:1, pl:1.00, pw:0.44, curve:0.30, tip:0,    core:0.22},
+  sori:     {name:"反り咲き", layers:1, pl:1.10, pw:0.27, curve:0.18, tip:0.35, core:0.09},
+  sakazuki: {name:"盃咲き",   layers:1, pl:0.80, pw:0.58, curve:0.44, tip:0,    core:0.13},
+  maki:     {name:"巻き咲き", layers:4, pl:0.86, pw:0.34, curve:0.28, tip:0,    core:0.06, spiral:true},
+};
+const ORIGIN={e:0.105, z:0.115};   /* 較正原点(暫定値・監修更新スロット。構図文法2-1) */
+/* o59:相手の声を「声標本の測定」の切り口で言葉にする=F0などの事実を伝える。
+   声標本の五視点(高さF0・流れ=F0の広がり・光=スペクトル重心/明るさ・余韻=減衰)を軸に、
+   数値/水準の事実+平易な一言(「明るい声でした」等)を添える。同じe,zが花の姿も決める(決定論・乱数不使用)。
+   ※体験版:相手はシナリオのため、F0はシナリオのvpitch、他はe,zから決定論的に導いた事実として提示 */
+let partnerFeat={e:0.10, z:0.10};
+function describeVoice(e,z){
+  const lvl=(v,o,sp)=>v>o+sp?2:(v<o-sp?0:1);          /* 高い(2)/中(1)/低い(0) */
+  const F0=Math.round(165*(SCN.vpitch||1));            /* 声の高さ(Hz)=事実の見出し */
+  const f0tag=F0>185?"高め":(F0<138?"低め":"中ほど");
+  const lg=lvl(e,ORIGIN.e,0.018), zg=lvl(z,ORIGIN.z,0.018);
+  const light=["やや低い","中ほど","高い"][lg];         /* 光=スペクトル重心(明るさ) */
+  const lightP=["落ち着いた響き","やわらかな明るさ","明るく澄んだ"][lg];
+  const flow =["狭い","中ほど","広い"][zg];             /* 流れ=F0の広がり(抑揚) */
+  const flowP=["まっすぐで静か","おだやかな抑揚","抑揚ゆたか"][zg];
+  const ampl=Math.hypot(e-ORIGIN.e, z-ORIGIN.z);
+  const echo = ampl>0.045? "長い" : "短い";             /* 余韻=減衰 */
+  const echoP= ampl>0.045? "余韻が残る" : "すっと消える";
+  return {
+    rows:[
+      {k:"高さ（F0）",       fact:`約 ${F0} Hz`, tag:f0tag},
+      {k:"流れ（F0の広がり）", fact:flow,          tag:flowP},
+      {k:"光（スペクトル重心）",fact:light,         tag:lightP},
+      {k:"余韻（減衰）",      fact:echo,          tag:echoP},
+    ],
+    plain: SCN.voice || ""                              /* どういう声だったか=平易な一言(そのまま添える) */
+  };
+}
+/* o60:対面モードの言葉標本を、水準のことばにする(声ではなく言葉のかたちの測定) */
+function partnerFeatToRow(words,stamps){
+  const f=textFeaturesOf(words,stamps)||{e:0.10,z:0.10};
+  const lv=(v,o)=>["ひかえめ","中ほど","ゆたか"][v>o+0.018?2:(v<o-0.018?0:1)];
+  return {eL:lv(f.e,ORIGIN.e), zL:lv(f.z,ORIGIN.z)};
+}
+let SEED=0, CODE="", flowerParams=null, bloomStart=0, lastFam=null, flowerNo=1, revealTimer=null;
+/* o49:言葉標本 ─ 声が無いとき(文字で話した人)も、花に科学的な根拠を。
+   声の代わりに「言葉の姿」(文の長さ・打つ間・句読点の密度)を決定論的に特徴量へ。
+   声標本(F0=高さ・広がり)と同じ役割を、言葉のプロソディが果たす。乱数不使用=憲法・将来 林博士監修の余地 */
+/* o60:ある人の言葉のまとまりから、言葉標本の特徴量(張り e・抑揚 z)を決定論的に取り出す */
+function textFeaturesOf(words, stamps){
+  const all=(words||[]).join("");
+  if(!all) return null;
+  const chars=all.length;
+  const avgLen=all.length/Math.max(1,words.length);                          /* 一言の長さ=声の張り(e)に対応 */
+  const punct=(all.match(/[、。！？…,.!?]/g)||[]).length/Math.max(1,chars);   /* 句読点=抑揚・間(z)に対応 */
+  let gaps=0; for(let i=1;i<(stamps||[]).length;i++) gaps+=Math.max(0,stamps[i]-stamps[i-1]);
+  const pace=(stamps||[]).length>1? gaps/(stamps.length-1) : 6;              /* 打つ間=ゆらぎ */
+  const e=c01(0.06+avgLen/60);                                               /* 長い言葉ほど"張り" */
+  const z=c01(0.05+punct*1.6+c01((pace-3)/12)*0.06);                         /* 句読点と間で"抑揚" */
+  return {e,z};
+}
+function textFeatures(){ return textFeaturesOf(myWords.length? myWords : picked, typeStamps); }
+function computeSeed(){
+  /* o60:ふたり(対面)モードは、両者の言葉から二つの言葉標本を取り、それを二つの"声"として花にする */
+  let e, z, pe, pz, idPart, meHas;
+  if(duoMode){
+    let A,B;
+    if(duoVoice){                              /* o61:声で=実測(張り e・抑揚 z)から。F0はパネルに別掲 */
+      const sa=duoVoiceStat(0), sb=duoVoiceStat(1);
+      A={e:sa.e,z:sa.z}; B={e:sb.e,z:sb.z};
+      idPart=`DUOV-${Math.round(sa.f0)}-${Math.round(sb.f0)}`;
+    }else{
+      A=textFeaturesOf(duoWords[0],duoStamps[0])||{e:0.10,z:0.10};
+      B=textFeaturesOf(duoWords[1],duoStamps[1])||{e:0.10,z:0.10};
+      idPart=`DUO-${hashStr(duoNames[0]+duoNames[1])}`;
+    }
+    e=A.e; z=A.z; pe=B.e; pz=B.z; meHas=true;
+  }else{
+    const tf=(talkMode!=="voice")? textFeatures() : null;   /* 文字で話した人は言葉標本 */
+    e=tf? tf.e : (micStats.n? micStats.eSum/micStats.n : 0.11);
+    z=tf? tf.z : (micStats.n? micStats.zSum/micStats.n : 0.09);
+    const ph=mulberry32(hashStr(SCN.id));
+    pe=0.06+ph()*0.12; pz=0.06+ph()*0.14;
+    idPart=SCN.id; meHas=tf||micStats.n;
+  }
+  const seedStr=`OPC-${DATESTR}-${idPart}-${Math.round(e*1000)}-${Math.round(z*1000)}-${picked.length}`;
+  SEED=hashStr(seedStr);
+  CODE=`OPC-${DATESTR}-${SEED.toString(16).toUpperCase().padStart(8,"0").slice(0,4)}`;
+  partnerFeat={e:pe, z:pz};   /* o53:誕生画面の「声の分析」に使う(花と同じ数値=物語がつながる) */
+  /* 際立ち=較正原点からの距離を冪カーブ^0.72で拡大(視覚感性ガイド5c:正直な拡大鏡) */
+  const mag=x=>Math.pow(c01(Math.abs(x)*5), 0.72);
+  const sU=Math.max(mag(e-ORIGIN.e), mag(z-ORIGIN.z));
+  const sP=Math.max(mag(pe-ORIGIN.e), mag(pz-ORIGIN.z));
+  /* 真=より際立つ側(あなたの声 or 言葉が花形を決め、もう一方が色を差す) */
+  const lead=(meHas && sU>=sP)? {e:e, z:z} : {e:pe, z:pz};
+  const de=lead.e-ORIGIN.e, dz=lead.z-ORIGIN.z;
+  /* 花形:最も際立つ軸とその向きで決定論的に(低い特徴も浅くではなく「別の系統」として語る) */
+  let fam;
+  if(mag(de)>=mag(dz)) fam= de>=0? "kasane":"sakazuki";
+  else                 fam= dz>=0? "shindachi":"maki";
+  if(Math.abs(mag(de)-mag(dz))<0.06) fam="hira";          /* 拮抗する声=平咲き */
+  if(mag(de)>0.8 && mag(dz)>0.8)     fam="sori";          /* 両軸とも強い声=反り咲き */
+  /* o18:その通話固有の種を混ぜ、花はその都度違う系統に(声標本の6系統を巡回・乱数不使用)。
+     同じ見た目を続けて出さない=花屋の原則(視覚感性ガイド5b) */
+  const famList=["hira","kasane","shindachi","sori","sakazuki","maki"];
+  let fi=(famList.indexOf(fam)+(PAIR.salt||0))%6;
+  if(famList[fi]===lastFam) fi=(fi+1)%6;
+  fam=famList[fi]; lastFam=fam;
+  /* 咲き加減:一輪=真。真は必ず深く咲く(最低0.88。構図文法2-4) */
+  const v=Math.max(mag(de), mag(dz));
+  const bloom=Math.max(0.88, 0.32+v*0.68);
+  /* 声の調べ→花色の調律(±18°上限。視覚感性ガイド5c-2)。o17:二色はその通話のPAIRに連動 */
+  const hueU=PAIR.hueU+Math.max(-18,Math.min(18,(z-ORIGIN.z)*260));
+  flowerParams={
+    fam, petals:5+Math.round(c01((e+pe)*3.2+picked.length*0.10)*4),   /* にぎわい→5〜9枚 */
+    bloom, hueU, hueP:PAIR.hueP,
+    tilt: dz>0? 0.20 : 0.04,
+    lean: ((SEED>>2)&1? 1:-1)*(0.10+v*0.07),   /* o29:花は必ずすこし傾いで垂れる(星座の姿勢) */
+    bloomLabel: v>0.93? "満開":"八分咲き",
+    form:{                          /* 声標本の form(すべて二つの声から決定論的に) */
+      petals:5+Math.round(c01((e+pe)*3.2+picked.length*0.10)*4),
+      tip:c01(0.2+(lead.z-ORIGIN.z)*2.2),
+      frill:c01(0.25+(lead.e-ORIGIN.e)*2.5+picked.length*0.06),
+      width:c01(0.45+pe*1.4),
+      open:c01(0.5+v*0.5),
+      vari:c01(0.25+Math.abs(dz)*2),
+      serr:c01((pz-0.10)*2),
+      whorl2:(e>0.12),
+    },
+  };
+  buildSketch();
+}
+/* ═══ 声標本 index.html の設計図の花を移植(petalPts=声の数値がそのまま花弁の輪郭になる) ═══ */
+function petalPts(len,wid,q){
+  q=q||{tip:0.3,frill:0.3,belly:0.5};
+  const serr=q.serr||0, ph=q.ph||0;
+  const N=serr>0.2?30:15;
+  const ea=0.60+q.tip*0.64, eb=0.86-q.belly*0.26+q.tip*0.38;
+  const wAt=t=>Math.pow(Math.sin(Math.PI*Math.pow(t,ea)),eb);
+  const frillF=2.0+q.frill*2.6, frillA=0.02+q.frill*0.16;
+  const serrF=7+serr*9, serrA=serr*0.055;
+  const tri=x=>Math.abs(((x/Math.PI)%2+2)%2-1)*2-1;
+  const round=0.20*(1-q.tip), tCap=1-Math.max(0.04,round);
+  const side=t=>(wAt(t)+(frillA*Math.sin(frillF*Math.PI*t+ph)+serrA*tri(serrF*Math.PI*t+ph*1.7))*Math.sin(Math.PI*t))*wid;
+  const pts=[];
+  for(let i=0;i<=N;i++){const t=i/N*tCap;pts.push([side(t),t*len]);}
+  if(round>0.05){const wc=side(tCap);for(let a=1;a<6;a++){const ang=a/6*Math.PI;pts.push([Math.cos(ang)*wc,tCap*len+Math.sin(ang)*round*len]);}}
+  else pts.push([0,len]);
+  for(let i=N;i>=0;i--){const t=i/N*tCap;pts.push([-side(t),t*len]);}
+  return pts;
+}
+/* 花形ごとの組み立て(声標本 makeCorolla/makeRadial のレシピを正規化スケールで移植) */
+let sketch=null;
+function buildSketch(){
+  const srng=mulberry32(SEED^0x9e37);
+  const fp=flowerParams, fm=fp.form, fam=fp.fam;
+  const vv=fm.vari;
+  const pv=b=>({tip:c01(b.tip+(srng()-0.5)*0.24*vv),frill:c01(b.frill+(srng()-0.5)*0.34*vv),
+    belly:c01(b.belly+(srng()-0.5)*0.20*vv),serr:(b.serr!=null?b.serr:fm.serr)||0,ph:srng()*Math.PI*2});
+  /* 蕊(雄蕊・雌蕊)は描かない——放射する線と点は詩帆のバグ報告(o7)により不採用。
+     rng()の呼び出し順を保つため、蕊に使っていた乱数は消費だけ行う */
+  const petals=[]; let core=null;
+  const put=(len,wid,q,op,vein,yaw,whorl,tiltF,bend)=>{
+    petals.push({pts:petalPts(len,wid,q),len,ang:yaw+(srng()-0.5)*0.07,
+      rotz:(srng()-0.5)*0.20,op,vein,whorl,tiltF:tiltF||0.5,bend:bend||0.5});
+  };
+  const addStamens=(cnt,tl,op,tick)=>{ if(tick) for(let i=0;i<cnt;i++) srng(); };
+  /* tiltF=花弁の傾き(垂直→水平の割合。声標本レシピのtilt係数)、bend=先端の反り */
+  if(fam==="hira"){
+    const cnt=Math.max(3,Math.min(fm.petals,9));
+    const len=0.94+fm.width*0.40, wid=0.38+fm.width*0.48;
+    const q={tip:fm.tip,frill:fm.frill,belly:fm.width};
+    const tf=0.10+fm.open*0.84;
+    for(let i=0;i<cnt;i++)
+      put(len*(0.90+srng()*(0.12+0.14*vv)), wid*(0.94+srng()*0.12*vv), pv(q), 0.78, true, i/cnt*Math.PI*2, 0, tf, 0.5);
+    if(fm.whorl2) for(let i=0;i<cnt-1;i++)
+      put(len*0.62, wid*0.78, pv(q), 0.70, true, i/(cnt-1)*Math.PI*2+Math.PI/cnt, 1, tf*0.55, 0.5);
+    addStamens(5, 0.24+fm.open*0.14, 0.42);
+  }else if(fam==="kasane"){
+    const whorls=3+(fm.petals>6?1:0);
+    for(let w=0;w<whorls;w++){
+      const t=w/whorls, cnt=Math.max(5,fm.petals-w);
+      const q={tip:Math.min(0.4,fm.tip*0.5),frill:Math.min(1,fm.frill*1.25+0.18),
+        belly:Math.max(0.5,fm.width),serr:(fm.serr||0)*0.7};
+      for(let i=0;i<cnt;i++)
+        put((1.02-t*0.50)*(0.94+srng()*0.12), 0.52-t*0.10, pv(q), 0.74-t*0.12, w===0, (i+w*0.5)/cnt*Math.PI*2, w, 0.16+fm.open*(0.72-t*0.44), 0.55);
+    }
+    addStamens(6, 0.20, 0.35);
+  }else if(fam==="shindachi"){
+    const cnt=Math.max(6,Math.min(8,fm.petals+2));
+    const q={tip:Math.min(0.30,fm.tip),frill:fm.frill*0.5,belly:Math.max(0.62,fm.width),serr:(fm.serr||0)*0.35};
+    for(let i=0;i<cnt;i++)
+      put(1.02*(0.94+srng()*0.12), 0.62, pv(q), 0.78, true, i/cnt*Math.PI*2, 0, 0.55+fm.open*0.30, 0.35);
+    core={r:0.15};
+    addStamens(14, 0.34, 0.55);
+  }else if(fam==="sori"){
+    const q={tip:Math.max(0.72,fm.tip),frill:fm.frill*0.4,belly:Math.min(0.35,fm.width),serr:(fm.serr||0)*0.3};
+    for(let i=0;i<6;i++)
+      put(1.28*(0.94+srng()*0.12), 0.34, pv(q), 0.80, true, i/6*Math.PI*2, 0, 0.55, 1.4);
+    addStamens(6, 0, 0.5, true);
+  }else if(fam==="sakazuki"){
+    const q={tip:0.20,frill:Math.min(0.25,fm.frill),belly:0.55};
+    for(let i=0;i<5;i++)
+      put(0.96*(0.96+srng()*0.08), 0.56, pv(q), 0.76, false, i/5*Math.PI*2, 0, 0.42+fm.open*0.30, 0.5);
+    addStamens(5, 0.22, 0.4);
+  }else{                                               /* maki 巻き咲き */
+    for(let w=0;w<3;w++){
+      const t=w/3, cnt=5+w*2;
+      const q={tip:0.15,frill:0.22,belly:0.62,serr:(fm.serr||0)*0.3};
+      for(let i=0;i<cnt;i++)
+        put((1.0-t*0.42)*(0.95+srng()*0.10), 0.55-t*0.12, pv(q), 0.72, false, (i+w*0.37)/cnt*Math.PI*2, w, 0.22+fm.open*0.55*(1-t*0.6), 0.5);
+    }
+  }
+  petals.forEach((p,i)=>{
+    p.stag=i/petals.length;                            /* 外輪から順に開く */
+    p.colHue=(i%2)? fp.hueU : fp.hueP;                 /* o26:一枚おきに、二人の色(単一輪でも二色が見える) */
+  });
+  sketch={petals, core};
+}
+/* o59:花に触れる(タップ)と、待たずにメモを開ける。回す(ドラッグ)ときはメモを出さない */
+(function endRevealOnTap(){
+  const scr=document.getElementById("scrEnd");
+  let dx=0,dy=0,moved=false;
+  scr.addEventListener("pointerdown",e=>{ dx=e.clientX; dy=e.clientY; moved=false; });
+  scr.addEventListener("pointermove",e=>{ if(Math.hypot(e.clientX-dx,e.clientY-dy)>10) moved=true; });
+  scr.addEventListener("pointerup",()=>{ if(!moved && scr.classList.contains("blooming")) scr.classList.remove("blooming"); });
+})();
+function beginBirth(){
+  computeSeed(); show("scrEnd");
+  /* o59:まず花がフルスクリーンで咲く(声標本の披露と同じ作法)。咲き終えたらメモが現れる */
+  const scr=document.getElementById("scrEnd");
+  scr.classList.add("blooming"); scr.scrollTop=0;
+  if(revealTimer) clearTimeout(revealTimer);
+  revealTimer=setTimeout(()=>scr.classList.remove("blooming"), 5600);   /* 花が形になってから、メモへ */
+  /* o49:拾った言葉は一つの箱に封じる(羅列しない=静謐)。触れると開く */
+  const box=document.getElementById("wordBox");
+  const inner=document.getElementById("wbInner");
+  box.classList.remove("open");
+  if(picked.length){
+    document.getElementById("wbCount").textContent=String(Math.min(7,picked.length))+"つ";   /* o57:算用数字に統一 */
+    inner.innerHTML=picked.map(p=>`<div class="wbW">「${p}」</div>`).join("");
+    box.style.display="block";
+  }else{
+    box.style.display="none";
+  }
+  /* o27:あなたのコレクションとしての通し番号(端末に記憶。花が生まれるたびに進む) */
+  try{
+    flowerNo=parseInt(localStorage.getItem("opc_flower_no")||"0",10)+1;
+    localStorage.setItem("opc_flower_no",String(flowerNo));
+  }catch(e){ flowerNo=Math.max(1,callIndex); }
+  document.getElementById("endTitle").textContent="OPPOSITE FLOWER #"+String(flowerNo).padStart(3,"0");
+  /* o28:交差するはずのなかった二つの星を、対等に・横並びに・それぞれの色で */
+  const cu=PAIR.c2||[110,178,232], cp=PAIR.c1||[154,126,216];
+  if(duoMode){
+    document.getElementById("endWho").innerHTML=
+      `<div class="who"><span class="dot" style="background:rgb(${cu.join(",")});box-shadow:0 0 10px rgba(${cu.join(",")},.75)"></span>`+
+      `<div class="wl">${esc(duoNames[0])}</div></div>`+
+      `<div class="whoX">×</div>`+
+      `<div class="who"><span class="dot" style="background:rgb(${cp.join(",")});box-shadow:0 0 10px rgba(${cp.join(",")},.75)"></span>`+
+      `<div class="wl">${esc(duoNames[1])}</div></div>`;
+  }else{
+    document.getElementById("endWho").innerHTML=
+      `<div class="who"><span class="dot" style="background:rgb(${cu.join(",")});box-shadow:0 0 10px rgba(${cu.join(",")},.75)"></span>`+
+      `<div class="wl">${PROFILE.pref}・${PROFILE.job}<br>${PROFILE.age}・${PROFILE.mood}</div></div>`+
+      `<div class="whoX">×</div>`+
+      `<div class="who"><span class="dot" style="background:rgb(${cp.join(",")});box-shadow:0 0 10px rgba(${cp.join(",")},.75)"></span>`+
+      `<div class="wl">${SCN.area}・${SCN.who}<br>${SCN.age}・${SCN.mood}</div></div>`;
+  }
+  document.getElementById("endCode").textContent=
+    `設計図 ${CODE} ─ ${FAMS[flowerParams.fam].name}・${flowerParams.bloomLabel}`;
+  if(duoMode && duoVoice){
+    /* o61:声で=その場で実測した二人の声(F0・明るさ)。声の科学者に見せられる、本物の数値 */
+    const A=duoVoiceStat(0), B=duoVoiceStat(1);
+    const brT=c=>c>2400?"明るい":(c<1500?"やわらかい":"中ほど");
+    const f0T=f=>f>185?"高め":(f<138?"低め":"中ほど");
+    const row=(nm,st)=> st.f0?
+      `<div class="evRow"><span class="evK">${esc(nm)}</span><span class="evV"><span class="fact">F0 約 ${st.f0} Hz</span>　<span class="plain">${f0T(st.f0)}・明るさ 約 ${st.cent} Hz</span></span></div>`
+      : `<div class="evRow"><span class="evK">${esc(nm)}</span><span class="evV"><span class="plain">声が取れませんでした</span></span></div>`;
+    document.getElementById("endVoice").innerHTML=
+      `<div class="evTtl">ふたりの声 ── 声標本の実測より</div>`+ row(duoNames[0],A)+ row(duoNames[1],B)+
+      `<div class="evPoem"><span class="nb">たったいま、</span><span class="nb">この場で測った実際の声です。</span><span class="nb">(F0=基本周波数・明るさ=スペクトル重心)</span></div>`;
+    document.getElementById("endMusic").innerHTML=
+      `<span class="nb">この旋律は、</span><span class="nb">${esc(duoNames[0])} と ${esc(duoNames[1])} の声から。</span>`+
+      `<span class="note"><span class="nb">8小節・61で息をする短調。</span><span class="nb">止めるまで、めぐります。</span></span>`;
+  }else if(duoMode){
+    /* o60:文字の対面は"言葉標本"=声ではなく、ふたりの言葉のかたちから測る(F0はつけない=誠実に) */
+    const A=partnerFeatToRow(duoWords[0],duoStamps[0]), B=partnerFeatToRow(duoWords[1],duoStamps[1]);
+    document.getElementById("endVoice").innerHTML=
+      `<div class="evTtl">ふたりの言葉 ── 言葉標本より</div>`+
+      `<div class="evRow"><span class="evK">${esc(duoNames[0])}</span><span class="evV"><span class="fact">言葉の張り ${A.eL}</span>　<span class="plain">抑揚 ${A.zL}</span></span></div>`+
+      `<div class="evRow"><span class="evK">${esc(duoNames[1])}</span><span class="evV"><span class="fact">言葉の張り ${B.eL}</span>　<span class="plain">抑揚 ${B.zL}</span></span></div>`+
+      `<div class="evPoem"><span class="nb">声ではなく、</span><span class="nb">言葉のかたち(長さ・間・句読点)から</span><span class="nb">測っています。</span></div>`;
+    document.getElementById("endMusic").innerHTML=
+      `<span class="nb">この旋律は、</span><span class="nb">${esc(duoNames[0])} と ${esc(duoNames[1])} の言葉から。</span>`+
+      `<span class="note"><span class="nb">8小節・61で息をする短調。</span><span class="nb">止めるまで、めぐります。</span></span>`;
+  }else{
+    /* o59:相手がどんな声だったか=声標本の測定(F0などの事実)+平易な一言 */
+    const dv=describeVoice(partnerFeat.e, partnerFeat.z);
+    document.getElementById("endVoice").innerHTML=
+      `<div class="evTtl">相手の声 ── 声標本の測定より</div>`+
+      dv.rows.map(r=>`<div class="evRow"><span class="evK">${r.k}</span>`+
+        `<span class="evV"><span class="fact">${r.fact}</span>　<span class="plain">${r.tag}</span></span></div>`).join("")+
+      (dv.plain? `<div class="evPoem">${nbWrap(dv.plain)}</div>` : "");
+    document.getElementById("endMusic").innerHTML=
+      `<span class="nb">この旋律は、</span><span class="nb">あなたと ${SCN.area}の${SCN.who} の声から。</span>`+
+      `<span class="note"><span class="nb">8小節・61で息をする短調。</span><span class="nb">止めるまで、めぐります。</span></span>`;
+  }
+  const cv=document.getElementById("cvs");
+  const px=Math.min(640, Math.floor(Math.min(window.innerWidth*0.72,320)*2));
+  cv.width=px; cv.height=Math.round(px*1.32);        /* 茎のぶん、縦に */
+  buildAssembly(cv);
+  autoSpin=0; spinEase=0; spinPrevT=0;   /* o54:めぐりは満開から静かに始まる */
+  bloomStart=performance.now();
+  requestAnimationFrame(drawLoop);
+  setTimeout(()=>playMelody(), 900);
+}
+/* ═══ 星が集まって花になる(ドローンショー式の誕生。温白一色・輪郭に沿って疎に・咲くと花に溶ける) ═══ */
+const ASSEMBLE_LEAD=3.2;            /* 星が輪郭を描いてから、花が開きはじめるまで */
+let assembly=null;
+function buildAssembly(cv){
+  if(QUIET||!sketch){ assembly=null; return; }
+  const rng=mulberry32(SEED^0x5741);
+  const total=Math.max(26, Math.round(60*Math.pow(Math.min(1,innerWidth/720),2)));  /* 幅の二乗で遠慮 */
+  assembly=[];
+  for(let k=0;k<total;k++){
+    const pi=Math.floor(rng()*sketch.petals.length);              /* 星は設計図の輪郭の頂点に住む */
+    const p=sketch.petals[pi];
+    assembly.push({
+      pi, pti:Math.floor(rng()*p.pts.length),
+      sx:rng()*cv.width, sy:-16-rng()*cv.height*0.4,              /* 星は上から降りてくる */
+      t0:p.stag*2.0+rng()*0.6, d:1.6+rng()*0.9,                   /* 花弁の開く順と同じ順に届く */
+      sway:(rng()-0.5)*36, r:0.6+rng()*0.6,
+    });
+  }
+}
+/* 星は輪郭に着いたあとも消えない=星座が繋いだ花として残る */
+function drawAssembly(ctx,t,cx,cy,S,prog){
+  if(!assembly) return;
+  const groupA=0.75+0.25*Math.sin(t*0.9);                         /* 明滅は群れごと */
+  ctx.fillStyle="#e8f2ff";
+  assembly.forEach(s=>{
+    const p=sketch.petals[s.pi]; if(!p||!p.pts[s.pti]) return;    /* o45:花が組み直された時の安全弁 */
+    const q=flowerScreenPoint(p,p.pts[s.pti],prog,S);             /* 目的地は生きて動く輪郭の上 */
+    const tx=q? cx+q[0] : cx, ty=q? cy+q[1] : cy;
+    const pr=c01((t-s.t0)/s.d), ease=1-Math.pow(1-pr,3);
+    const px=s.sx+(tx-s.sx)*ease + s.sway*Math.sin(Math.PI*ease);
+    const py=s.sy+(ty-s.sy)*ease;
+    ctx.globalAlpha=(0.30+0.45*pr)*groupA;
+    ctx.beginPath(); ctx.arc(px,py,s.r,0,7); ctx.fill();
+  });
+  ctx.globalAlpha=1;
+}
+/* ═══ 星座が繋いだ花:立体(下から生える茎+ほどける花弁)を、細い輪郭線で描く ═══ */
+const VIEW={yaw:0, pitch:0.30};                          /* 天体の向き(360度回せる) */
+let yawVel=0, viewDragging=false;
+let autoSpin=0, spinEase=0, spinPrevT=0;                 /* o54:咲き終えた花は、ひとりでにゆっくり回る(声標本の作法) */
+function openVal(p,prog){ return 1-Math.pow(1-c01((prog-0.12-p.stag*0.34)/0.54),3); }
+/* 花弁上の一点を、立体(方位角ang+視点yaw・傾きφ・先端の反り)を通して画面座標へ */
+function flowerScreenPoint(p,pt,prog,S){
+  const open=openVal(p,prog);
+  if(open<=0.002) return null;
+  const px=pt[0]*open, py=pt[1]*open;
+  const phi=0.14+p.tiltF*(Math.PI/2-0.14)*open;          /* 蕾(垂直)→開く(水平へ) */
+  const phiT=phi*(1+0.30*(py/Math.max(0.001,p.len))*p.bend);  /* 先端ほど反る */
+  const h=py*Math.cos(phiT)+p.whorl*0.055, rh=py*Math.sin(phiT)+0.055;  /* 付け根を中心から離す=収束の丸を作らない(o18) */
+  const a=p.ang+VIEW.yaw+autoSpin;                       /* o54:自動のめぐり(指の回転に上乗せ) */
+  const X=rh*Math.sin(a)+px*Math.cos(a);
+  const D=rh*Math.cos(a)-px*Math.sin(a);                 /* 奥行き */
+  const sx=X*S, sy=(-h*(1.0-VIEW.pitch*0.5)+D*VIEW.pitch)*S;
+  const L=flowerParams.lean||0, cl=Math.cos(L), sl=Math.sin(L);   /* o29:傾ぎ(星も花弁もいっしょに) */
+  return [sx*cl-sy*sl, sx*sl+sy*cl, D];
+}
+/* 指で天体を回す(慣性つき)。空も視差でいっしょに回る */
+(function viewControl(){
+  const cv=document.getElementById("cvs");
+  let px0=0, py0=0;
+  cv.addEventListener("touchmove",ev=>ev.preventDefault(),{passive:false});   /* o21:iOSのスクロールに奪わせない */
+  cv.addEventListener("pointerdown",ev=>{ viewDragging=true; px0=ev.clientX; py0=ev.clientY;
+    try{cv.setPointerCapture(ev.pointerId)}catch(e){} });
+  cv.addEventListener("pointermove",ev=>{
+    if(!viewDragging) return;
+    const dx=ev.clientX-px0, dy=ev.clientY-py0; px0=ev.clientX; py0=ev.clientY;
+    VIEW.yaw+=dx*0.011; yawVel=dx*0.011;                 /* 花と宇宙は同一yaw=天体ごと回る(o18) */
+    VIEW.pitch=Math.max(0.12,Math.min(1.25,VIEW.pitch+dy*0.004));   /* o20:真上からも見られる */
+  });
+  const up=()=>{ viewDragging=false; };
+  cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
+})();
+function drawFlower(ctx,cx,cy,R,prog,tSec,bottomY){
+  if(!sketch) return;
+  const fp=flowerParams, S=R*0.72*(1+0.012*Math.sin(tSec*0.9));
+  /* 茎(o29):星座のように、まっすぐな線分を数節+節に小さな星。下から生える */
+  const stemP=c01(prog/0.22);
+  if(stemP>0 && bottomY!=null){
+    const L=fp.lean||0, sl=Math.sin(L), clc=Math.cos(L);
+    const topX=cx-0.10*S*sl, topY=cy+0.10*S*clc;         /* 傾いだ花冠の足元へ */
+    const rngS=mulberry32(SEED^0x77);
+    const K=[(rngS()-0.5)*16,(rngS()-0.5)*16,(rngS()-0.5)*12];
+    const pts=[[cx+K[0]*0.4, bottomY]];
+    for(let i=0;i<3;i++){ const t=(i+1)/4;
+      pts.push([ cx+(topX-cx)*t + K[i]*(1-t), bottomY+(topY-bottomY)*t ]); }
+    pts.push([topX, topY]);
+    const total=4, M=stemP*total;
+    ctx.strokeStyle="rgba(233,231,221,.45)"; ctx.lineWidth=1.05; ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for(let i=1;i<=Math.floor(M);i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    if(M<total && M>Math.floor(M)){ const i=Math.floor(M), f=M-i;
+      ctx.lineTo(pts[i][0]+(pts[i+1][0]-pts[i][0])*f, pts[i][1]+(pts[i+1][1]-pts[i][1])*f); }
+    ctx.stroke();
+    ctx.fillStyle="rgba(233,231,221,.6)";
+    for(let i=1;i<=Math.min(3,Math.floor(M));i++){       /* 節の星 */
+      ctx.globalAlpha=0.55;
+      ctx.beginPath(); ctx.arc(pts[i][0], pts[i][1], 1.15, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  }
+  ctx.save(); ctx.translate(cx,cy);
+  const order=[...sketch.petals].sort((a,b)=>Math.cos(a.ang+VIEW.yaw+autoSpin)-Math.cos(b.ang+VIEW.yaw+autoSpin));  /* 奥から手前へ */
+  order.forEach(p=>{
+    const path=[];
+    for(const pt of p.pts){ const q=flowerScreenPoint(p,pt,prog,S); if(!q){path.length=0;break;} path.push(q); }
+    if(!path.length) return;
+    const open=openVal(p,prog);
+    ctx.beginPath(); path.forEach((q,i)=>{ i? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath();
+    ctx.globalAlpha=0.19*Math.min(1,open*1.3);           /* 二人の色の膜(o26:顕著に。77秒の会話の色) */
+    ctx.fillStyle=`hsla(${p.colHue},48%,70%,1)`;
+    ctx.fill();
+    ctx.globalAlpha=p.op*0.72*Math.min(1,open*1.2);      /* 輪郭線にも色の気配(声標本の白線に一滴だけ) */
+    ctx.strokeStyle=`hsla(${p.colHue},26%,88%,1)`; ctx.lineWidth=0.65; ctx.stroke();
+  });
+  /* 蕊は描かない(o7)。中央の丸・芯グローも描かない(o18:詩帆のバグ報告=収束する光の円は禁忌) */
+  ctx.restore(); ctx.globalAlpha=1;
+}
+function drawLoop(){
+  const cv=document.getElementById("cvs"); if(!cv.width) return;
+  const ctx=cv.getContext("2d");
+  const t=(performance.now()-bloomStart)/1000;
+  const prog=c01((t-1.2)/DIAL.BLOOM_SECONDS);          /* 茎が伸び、花弁がほどけ、星が住みつく */
+  if(!viewDragging){                                    /* o34:慣性で静かに止まる。空は自動で流さない(白い幕の根絶) */
+    VIEW.yaw+=yawVel; yawVel*=0.92;
+    if(Math.abs(yawVel)<0.0004) yawVel=0;
+  }
+  /* o54:咲き終えたら、花だけがひとりでにゆっくり回る(声標本の作法)。
+     背景の空のyawには触れない=o34の白い幕を再発させない。指で回している間は、指にゆずる */
+  const dt=Math.min(0.05, spinPrevT? (t-spinPrevT):0.016); spinPrevT=t;
+  if(prog>=1 && !viewDragging && !yawVel){
+    spinEase=Math.min(1, spinEase+dt*0.30);            /* 満開から約3秒かけて、そっと回り出す */
+    autoSpin+=dt*0.10*spinEase;                        /* 一周およそ63秒=ゆっくりめぐる */
+  }
+  const cx=cv.width/2, cy=Math.round(cv.height*0.40);
+  const S=cv.width*0.4*0.72*(1+0.012*Math.sin(t*0.9));
+  ctx.clearRect(0,0,cv.width,cv.height);
+  drawFlower(ctx, cx, cy, cv.width*0.4, prog, t, cv.height-6);
+  drawAssembly(ctx, t, cx, cy, S, prog);
+  if(document.getElementById("scrEnd").classList.contains("active")) requestAnimationFrame(drawLoop);
+}
+/* 声から生まれた旋律(a案:録音ではなく、声と言葉から決定論的に生成)
+   音の作法:全音符(1音=1小節)・約61bpm・コードは物語として進行する8小節・ループの頭で帰る */
+const PROG=[                                     /* F△9→G9→Em9→Am9→Dm9→G9→C△9→E7(9) */
+  {bass:41, pad:[53,57,64,67]},                  /* F△9 */
+  {bass:43, pad:[55,59,65,69]},                  /* G9 */
+  {bass:40, pad:[52,55,62,66]},                  /* Em9 */
+  {bass:45, pad:[57,60,67,71]},                  /* Am9 */
+  {bass:38, pad:[50,53,60,64]},                  /* Dm9 */
+  {bass:43, pad:[55,59,65,69]},                  /* G9 */
+  {bass:36, pad:[48,52,59,62]},                  /* C△9 */
+  {bass:40, pad:[52,56,62,66]},                  /* E7(9)=一瞬帰って、また離れる */
+];
+/* 声標本 index.html の pianoTone を移植(弦の硬さB=0.00038・ユニゾン2弦・ハンマーの点音) */
+function pianoTone(freq,t0,dur,mul,pan){
+  mul=mul||1;
+  const pm=AC.createGain(); pm.gain.value=0.0001;
+  let out=pm;
+  if(AC.createStereoPanner){ const p=AC.createStereoPanner(); p.pan.value=pan||0; pm.connect(p); out=p; }
+  out.connect(melBus);
+  const B=0.00038;                                  /* 弦の硬さ */
+  const bright=Math.min(1,0.55+mul*0.5);
+  const PART=[[1,1.0,2.6],[2,0.50,1.7],[3,0.26,1.15],[4,0.13,0.8],[5,0.07,0.6],[6,0.04,0.45]];
+  [-0.6,0.7].forEach(det=>{                         /* ユニゾン2弦 */
+    PART.forEach(pr=>{
+      const n=pr[0], a=pr[1]*(n===1?1:Math.pow(bright,n-1));
+      if(a<0.008)return;
+      const o=AC.createOscillator(); o.type="sine";
+      o.frequency.value=freq*n*Math.sqrt(1+B*n*n)*(1+det/1200);
+      const g=AC.createGain();
+      g.gain.setValueAtTime(a*0.5,t0);
+      g.gain.setTargetAtTime(a*0.5*0.30,t0+0.012,0.09);
+      g.gain.setTargetAtTime(0.0001,t0+0.16,pr[2]*0.42);
+      o.connect(g); g.connect(pm); o.start(t0); o.stop(t0+dur+0.5);
+    });
+  });
+  try{                                              /* ハンマーの点音(実在感) */
+    const nb=AC.createBuffer(1,Math.floor(AC.sampleRate*0.02),AC.sampleRate);
+    const nd=nb.getChannelData(0); const rN=mulberry32(((freq*1000)|0)+7);
+    for(let i=0;i<nd.length;i++){const t=i/nd.length; nd[i]=(rN()*2-1)*Math.pow(1-t,3)*0.5;}
+    const ns=AC.createBufferSource(); ns.buffer=nb;
+    const nf=AC.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=Math.min(6500,freq*6); nf.Q.value=0.8;
+    const ng=AC.createGain(); ng.gain.value=0.05*mul*bright;
+    ns.connect(nf); nf.connect(ng); ng.connect(pm); ns.start(t0); ns.stop(t0+0.03);
+  }catch(e){}
+  pm.gain.setValueAtTime(0.0001,t0);
+  pm.gain.exponentialRampToValueAtTime(0.30*mul,t0+0.006);
+  pm.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+}
+/* 旋律は基本的に、止めるまで流し続ける(ループの頭で旋律の最初の音と最初の和音が必ず同時に帰る) */
+let melodyOn=false, melodyTimer=null, melBus=null, melodyNext=0;
+function melBusEnsure(){
+  if(melBus) return;
+  melBus=AC.createGain();
+  const dry=AC.createGain(); dry.gain.value=0.35;
+  melBus.connect(dry); dry.connect(master); melBus.connect(wetSend);
+}
+function melodyCycle(t0){                          /* 8小節=一巡をACの時計で正確に敷く */
+  const BAR=4*60/DIAL.BPM;
+  const rng=mulberry32(hashStr(CODE+picked.join(""))); /* 毎巡おなじ種=同じ旋律が帰ってくる */
+  PROG.forEach((ch,b)=>{
+    const w=t0+b*BAR;
+    bass(midiF(ch.bass), w, BAR*1.05, DIAL.MELODY_VOL*0.75, melBus);
+    ch.pad.forEach((m,i)=> tone(midiF(m), w+i*0.05, BAR*1.1, DIAL.MELODY_VOL*0.45, {lp:1000,bus:melBus}));
+    const mel=ch.pad[Math.floor(rng()*ch.pad.length)]+12;   /* 旋律=拾った言葉から。声標本のピアノで */
+    pianoTone(midiF(mel), w, BAR*1.05, 0.55, (b%4-1.5)*0.2);
+  });
+  return t0+PROG.length*BAR;
+}
+function scheduleNextCycle(){
+  const lead=(melodyNext-AC.currentTime-2)*1000;   /* 一巡の2秒前に次巡を敷く */
+  melodyTimer=setTimeout(()=>{
+    if(!melodyOn) return;
+    melodyNext=melodyCycle(melodyNext);
+    scheduleNextCycle();
+  }, Math.max(200,lead));
+}
+function playMelody(){
+  ensureAudio(); melBusEnsure();
+  const btn=document.getElementById("btnMelody");
+  if(melodyOn){                                    /* 止める:水に溶けて終わる */
+    melodyOn=false; clearTimeout(melodyTimer);
+    melBus.gain.setTargetAtTime(0.0001, AC.currentTime, 0.6);
+    if(btn) btn.textContent="旋律を聴く";
+    return;
+  }
+  melodyOn=true;
+  melBus.gain.cancelScheduledValues(AC.currentTime);
+  melBus.gain.setValueAtTime(1, AC.currentTime);
+  if(btn) btn.textContent="旋律を止める";
+  melodyNext=melodyCycle(AC.currentTime+0.15);
+  scheduleNextCycle();
+}
+/* ═══ 設計図の動画保存(声標本 recordBloom / f44の作法を移植)+保存時のみnanocaへ送信 ═══ */
+const WEB3FORMS_KEY="b0a94f5e-2acc-4060-ab25-1bda780548a7";   /* 声標本と共通(鍵の在りか:バイブル5章) */
+let recBusy=false, sentOnce=false;
+function sendDesign(){
+  if(sentOnce) return; sentOnce=true;              /* 保存を選んだ瞬間にだけ送る(不信感の根絶) */
+  try{
+    fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({access_key:WEB3FORMS_KEY, subject:"【Opposite Call】設計図 "+CODE,
+        from_name:"Opposite Call 体験版", code:CODE,
+        family:FAMS[flowerParams.fam].name, bloom:flowerParams.bloomLabel,
+        you:`${PROFILE.pref}/${PROFILE.job}/${PROFILE.age}/${PROFILE.mood}`,
+        opposite:`${SCN.area}/${SCN.who}/${SCN.age}/${SCN.mood}`,
+        picked_words_count:picked.length+"(言葉の中身は端末の外に出ません)",
+        date:DATESTR})}).catch(()=>{});
+  }catch(e){}
+}
+function saveVideo(btn){
+  if(recBusy) return;
+  const src=document.getElementById("cvs");
+  if(!src||!src.captureStream||typeof MediaRecorder==="undefined"){
+    if(btn) btn.textContent="この端末は映像保存に非対応(画像をご利用ください)";
+    return;
+  }
+  try{
+    recBusy=true;
+    /* f44:①合成canvasをDOMに実在させる ②毎フレームrequestFrame ③出力寸法は開始時に固定 */
+    const rc=document.createElement("canvas"); rc.width=720; rc.height=950;
+    rc.style.cssText="position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:0.01;pointer-events:none";
+    document.body.appendChild(rc);
+    const rctx=rc.getContext("2d");
+    const vs=rc.captureStream(30);
+    const track=vs.getVideoTracks()[0];
+    let stream=vs;
+    try{                                            /* 旋律の音もいっしょに(聞こえるままを録る) */
+      ensureAudio();
+      if(!AC._recDest){ AC._recDest=AC.createMediaStreamDestination(); master.connect(AC._recDest); }
+      stream=new MediaStream([...vs.getVideoTracks(),...AC._recDest.stream.getAudioTracks()]);
+    }catch(e){}
+    const mime=["video/mp4","video/webm;codecs=vp9,opus","video/webm"]
+      .find(m=>{try{return MediaRecorder.isTypeSupported(m)}catch(e){return false}})||"";
+    const rec=mime? new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6000000}) : new MediaRecorder(stream);
+    const chunks=[]; rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
+    let stop=false;
+    (function comp(){                               /* 毎フレーム:背景+回る花+刻印を合成 */
+      if(stop) return;
+      const g=rctx.createLinearGradient(0,0,0,rc.height);
+      g.addColorStop(0,"#141d42"); g.addColorStop(0.75,"#070c20");
+      rctx.fillStyle=g; rctx.fillRect(0,0,rc.width,rc.height);
+      try{ const sc=starCv; const sw=Math.min(sc.width, sc.height*rc.width/rc.height);
+        rctx.globalAlpha=0.9;
+        rctx.drawImage(sc,(sc.width-sw)/2,0,sw,sc.height,0,0,rc.width,rc.height);
+        rctx.globalAlpha=1; }catch(e){}
+      const cv=document.getElementById("cvs");
+      const s=Math.min(rc.width/cv.width, rc.height*0.78/cv.height);
+      rctx.drawImage(cv,(rc.width-cv.width*s)/2, rc.height*0.05, cv.width*s, cv.height*s);
+      rctx.textAlign="center";
+      rctx.fillStyle="rgba(233,231,221,.8)"; rctx.font="22px 'Space Grotesk',sans-serif";
+      rctx.fillText("OPPOSITE CALL", rc.width/2, rc.height-62);
+      rctx.fillStyle="rgba(154,153,166,.85)"; rctx.font="16px 'Zen Kaku Gothic New',sans-serif";
+      rctx.fillText(`OPPOSITE FLOWER #${String(flowerNo).padStart(3,"0")} ─ 設計図 ${CODE}`, rc.width/2, rc.height-32);
+      if(track&&track.requestFrame){ try{track.requestFrame()}catch(e){} }   /* 毎フレーム明示的に送る */
+      requestAnimationFrame(comp);
+    })();
+    rec.onstop=()=>{
+      stop=true;
+      try{
+        const blob=new Blob(chunks,{type:rec.mimeType||"video/webm"});
+        const a=document.createElement("a");
+        a.href=URL.createObjectURL(blob);
+        a.download=CODE+((rec.mimeType||"").includes("mp4")?".mp4":".webm");
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+      }catch(e){}
+      rc.remove(); recBusy=false;
+      if(btn){ btn.textContent="設計図を動画で保存"; btn.disabled=false; }
+      sendDesign();
+    };
+    if(btn){ btn.textContent="● 記録しています…(約10秒)"; btn.disabled=true; }
+    if(!melodyOn) playMelody();                     /* 旋律とともに録る */
+    rec.start(1000);                                /* 1秒ごとに確定=途中で死んでも残る */
+    setTimeout(()=>{ try{rec.stop()}catch(e){} }, 10000);
+  }catch(e){
+    recBusy=false;
+    if(btn){ btn.textContent="録画を開始できませんでした"; btn.disabled=false; }
+  }
+}
+/* 設計図の保存(PNG) */
+function saveImage(){
+  sendDesign();
+  const W=900,H=1200, oc=document.createElement("canvas");
+  oc.width=W; oc.height=H; const ctx=oc.getContext("2d");
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,"#0d1122"); bg.addColorStop(0.7,"#05060f");
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  drawFlower(ctx, W/2, H*0.30, 240, 1, 0, H*0.60);
+  drawAssembly(ctx, 99, W/2, H*0.30, 240*0.72, 1);   /* 住みついた星ごと保存する */
+  ctx.textAlign="center"; ctx.fillStyle="#e9e7dd";
+  ctx.font="26px 'Hiragino Mincho ProN','Yu Mincho',serif";
+  picked.forEach((p,i)=>ctx.fillText(`「${p}」`, W/2, H*0.68+i*52, W*0.88));
+  ctx.fillStyle="#9a99a6"; ctx.font="18px serif";
+  ctx.fillText(`OPPOSITE FLOWER #${String(flowerNo).padStart(3,"0")} ─ 設計図 ${CODE} ─ ${FAMS[flowerParams.fam].name}・${flowerParams.bloomLabel}`, W/2, H*0.68+picked.length*52+50, W*0.92);
+  ctx.fillText(`${PROFILE.pref}の${PROFILE.job}(${PROFILE.age}・${PROFILE.mood})と、${SCN.area}の${SCN.who}(${SCN.age}・${SCN.mood})。`, W/2, H*0.68+picked.length*52+82, W*0.9);
+  ctx.font="14px serif"; ctx.fillStyle="rgba(154,153,166,.6)";
+  ctx.fillText("OPPOSITE CALL ─ nanoca ─ 一度だけの通話から", W/2, H-60);
+  const a=document.createElement("a");
+  a.download=`${CODE}.png`; a.href=oc.toDataURL("image/png"); a.click();
+}
+</script>
+</body>
+</html>
